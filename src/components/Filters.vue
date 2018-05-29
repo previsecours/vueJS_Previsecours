@@ -2,15 +2,21 @@
   <div v-show="!hideAllFilters" id="filters">
     version: {{version}}
     <FilterCategorInter></FilterCategorInter>
+    <FilterTimeAggregation></FilterTimeAggregation>
+    <FilterGeoAggregation></FilterGeoAggregation>
   </div>
 </template>
 
 <script>
 import version from '../assets/version.json'
 import FilterCategorInter from './FilterCategorInter.vue'
+import FilterTimeAggregation from './FilterTimeAggregation.vue'
+import FilterGeoAggregation from './FilterGeoAggregation.vue'
 export default {
   components: {
-    FilterCategorInter
+    FilterCategorInter,
+    FilterTimeAggregation,
+    FilterGeoAggregation
   },
   data () {
     return {

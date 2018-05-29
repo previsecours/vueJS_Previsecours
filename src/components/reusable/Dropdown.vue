@@ -1,12 +1,12 @@
 <template>
     <div class="btn-group">
         <li @click="toggleMenu()" class="dropdown-toggle" v-if="selectedOption.name !== undefined">
-          {{ selectedOption.name }}
+          <font-awesome-icon :icon="this.iconName" /> {{ selectedOption.name }}
           <span class="caret"></span>
         </li>
 
         <li @click="toggleMenu()" class="dropdown-toggle" v-if="selectedOption.name === undefined">
-          {{placeholderText}}
+          <font-awesome-icon :icon="this.iconName" /> {{placeholderText}}
           <span class="caret"></span>
         </li>
 
@@ -21,44 +21,51 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                selectedOption: {
-                  name: '',
-                },
-                showMenu: false,
-                placeholderText: 'Please select an item',
-            }
-        },
-        props: {
-            options: {
-                type: [Array, Object]
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+export default {
+    components:{
+      FontAwesomeIcon
+    },
+    data() {
+        return {
+            selectedOption: {
+              name: '',
             },
-            selected: {},
-            placeholder: [String]
-        },
-
-        mounted() {
-            this.selectedOption = this.selected;
-            if (this.placeholder)
-            {
-                this.placeholderText = this.placeholder;
-            }
-        },
-
-        methods: {
-            updateOption(option) {
-                this.selectedOption = option;
-                this.showMenu = false;
-                this.$emit('updateOption', this.selectedOption);
-            },
-
-            toggleMenu() {
-              this.showMenu = !this.showMenu;
-            }
+            showMenu: false,
+            placeholderText: 'Please select an item',
         }
-    }
+    },
+    props: {
+        options: {
+            type: [Array, Object]
+        },
+        selected: {},
+        placeholder: [String],
+        iconName: String
+    },
+    mounted() {
+        this.selectedOption = this.selected;
+        if (this.placeholder)
+        {
+            this.placeholderText = this.placeholder;
+        }
+    },
+    methods: {
+        updateOption(option) {
+            this.selectedOption = option;
+            this.showMenu = false;
+            this.$emit('updateOption', this.selectedOption);
+        },
+        toggleMenu() {
+          this.showMenu = !this.showMenu;
+        }
+    },
+    // computed:{
+    //   icon(){
+    //     return this.'map-signs'
+    //   }
+    // }
+}
 </script>
 
 <style scoped>
@@ -67,9 +74,10 @@
         min-width: 160px;
         height: 40px;
         position: relative;
-        margin: 0px 1px;
+        margin: 0px 0px;
         display: inline-block;
         vertical-align: middle;
+        background-color: #f6f6f6;
         a {
             &:hover {
                 text-decoration: none;
@@ -128,7 +136,7 @@
         clear: both;
         font-weight: normal;
         line-height: 1.6;
-        color: #333333;
+        color: #636b6f;
         white-space: nowrap;
         text-decoration: none;
 
