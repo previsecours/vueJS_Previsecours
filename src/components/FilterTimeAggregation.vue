@@ -17,16 +17,16 @@ export default {
   },
   computed: {
     timeAggregation() {
-      return this.$store.state.configuration.timeAggregation;
+      return this.$store.state.configuration.timeAggregations;
     },
     firstSelected(){
-      return this.$store.state.configuration.timeAggregation[0];
+      return this.$store.state.configuration.timeAggregations[0];
     }
   },
   methods:{
     filters_updateTimeAggregation(e){
-      this.$store.commit('filters_updateTimeAggregation',e.nameCode);
-      console.log( 'action a produire lorsque on selectionne un jour de dropdown', e);
+      this.$store.dispatch('filters_updateTimeAggregation',e.nameCode);
+      console.log( 'action a produire si selection de: ', e);
     }
   }
 }

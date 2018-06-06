@@ -1,6 +1,5 @@
 <template>
   <div v-show="!hideAllFilters" id="filters">
-    version: {{version}}
     <FilterCategorInter></FilterCategorInter>
     <FilterTimeAggregation></FilterTimeAggregation>
     <FilterGeoAggregation></FilterGeoAggregation>

@@ -17,10 +17,10 @@ export default {
   },
   computed: {
     categorInter() {
-      return this.$store.state.configuration.categorInter;
+      return this.$store.state.configuration.categorInters;
     },
     firstSelected(){
-      return this.$store.state.configuration.categorInter[0];
+      return this.$store.state.configuration.categorInters[0];
     }
   },
   methods:{

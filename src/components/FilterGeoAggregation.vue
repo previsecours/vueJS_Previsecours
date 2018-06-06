@@ -17,10 +17,10 @@ export default {
   },
   computed: {
     geoAggregation() {
-      return this.$store.state.configuration.geoAggregation;
+      return this.$store.state.configuration.geoAggregations;
     },
     firstSelected(){
-      return this.$store.state.configuration.geoAggregation[0];
+      return this.$store.state.configuration.geoAggregations[0];
     }
   },
   methods:{
