@@ -10,21 +10,6 @@
 import slider from 'nouislider'
 import 'nouislider/distribute/nouislider.css'
 
-// import searchObj from '../../store/elasticsearch.js'
-//
-// console.log(
-//   searchObj.search(
-//     'previsecours',
-//     {
-//         "query": {
-//             "match" : {
-//                 "s_1" : 1
-//             }
-//         }
-//     }
-//   )
-// )
-
 export default {
   data () {
     return {

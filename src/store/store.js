@@ -3,6 +3,16 @@ import VueX from 'vuex';
 
 Vue.use(VueX);
 
+import es from './elasticsearch.js'
+
+console.log(
+  es.searchSimpleFilter(
+    'geo',
+    'properties.OBJECTID',
+    16
+  )
+)
+
 export const store =  new VueX.Store({
   state:{
     /**

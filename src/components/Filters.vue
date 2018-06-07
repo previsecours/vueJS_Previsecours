@@ -36,14 +36,5 @@ export default {
     top: 0px;
     left: 0px;
     z-index:1000;
-
-    /* height: 100%;
-    width: 100%;
-    padding-top: 100px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-rigth: 10px;
-    background-color: grey;
-    opacity: 0.5; */
   }
 </style>

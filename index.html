@@ -28,6 +28,8 @@
 
 <script>
   setTimeout(function(){
-    document.getElementById("infoNotWorking").style.display = "block";
+    if(document.getElementById("infoNotWorking")){
+      document.getElementById("infoNotWorking").style.display = "block";
+    }
   }, 8000);
 </script>
