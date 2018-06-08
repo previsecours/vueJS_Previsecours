@@ -221,14 +221,15 @@ export const store =  new VueX.Store({
    filters_updateTimeAggregation:(context,newTimeAggregation) => {
        context.commit('filters_updateTimeAggregation',newTimeAggregation)
    },
-   // queryESPve (context) {
-   //    const state = context.state
-   //    const query = es.generateAggregatedQuery(state.criteria_list, context.getters.formatedDates, state.services_selected, constants.PVE, context.getters.view)
-   //    return es.search(constants.PVE, query)
-   //  },
-
+   /**
+    * [getNewData will create the query and then fetch the result for one dataset like 'int'. dataSubset has been checked in the reloadData function, so no need to double check here]
+    * @param  {object} context    [store context]
+    * @param  {string} dataSubset [string, that is defined in the assets/configuration.json   -> for instance could be 'int']
+    * @return {object}            [result of the query]
+    */
    getNewData(context,dataSubset){
       let query = es.function_createQuery(context.state,dataSubset)
+      console.log(query, dataSubset);
       return es.search(dataSubset,query)
     },
     /*   getNewDataTest(context,dataSubset) {
@@ -241,14 +242,24 @@ export const store =  new VueX.Store({
           )
         },
     */
-
+    /**
+     * [reloadData will trigger the elasticsearch request and update the store with the result]
+     * @param  {object} context     [store context]
+     * @param  {[string]} dataSubsets [array of strings, that are defined in the assets/configuration json. for instance could be ['int','geo']   ]
+     * @return {object}             [nothing]
+     */
     reloadData: (context,dataSubsets) => {
-      dataSubsets.forEach((dataSubset) => {
-        context.dispatch('getNewData',dataSubset).then(function(values){
-          let result = {'dataSubset':dataSubset,'elasticsearchResult':values};
-          context.commit('reloadData',result)
+      if(Array.isArray(dataSubsets)){
+        dataSubsets.forEach((dataSubset) => {
+          //here we make sure the dataSubset is one of those defined in the assets/configuration.json
+          if(typeof dataSubset === 'string' && typeof configuration.indexes[dataSubset] === 'string'){
+            context.dispatch('getNewData',dataSubset).then(function(values){
+              let result = {'dataSubset':dataSubset,'elasticsearchResult':values};
+              context.commit('reloadData',result)
+            })
+          }else { console.log('dataSubset: ',dataSubset,' needs to be part of the configuration json, like int or geo'); }
         })
-      })
+      }else{ console.log('dataSubsets needs to be an array of string'); }
     }
  }
 

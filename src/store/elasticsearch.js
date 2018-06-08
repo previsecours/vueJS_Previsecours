@@ -8,13 +8,15 @@ const client = new elasticsearch.Client({
 })
 
 /**
+ * ------------------------------------------------------------------------------------------------------------------------------
  * Search functions
+ * ------------------------------------------------------------------------------------------------------------------------------
 */
 
 
 /**
  * [Basic search function for elasticsearch]
- * @param  {string} type  [one of the value defined in configuration.indexes]
+ * @param  {string} indexType  [one of the value defined in configuration.indexes]
  * @param  {Object} query [the elasticsearch query]
  * @return {Object}       [the result from elasticsearch database]
  *
@@ -28,13 +30,13 @@ const client = new elasticsearch.Client({
      }))
  *
  */
-function search(type, query) {
-  if(!configuration.indexes[type]) {
-    console.log('indexes[type] problem in SEARCH: ',configuration.indexes[type]);
+function search(indexType, query) {
+  if(!configuration.indexes[indexType]) {
+    console.log('indexes[indexType] problem in SEARCH: ',configuration.indexes[indexType]);
     return false
   }
   return client.search({
-    index: configuration.indexes[type],
+    index: configuration.indexes[indexType],
     body: query
   })
 }
@@ -42,7 +44,7 @@ function search(type, query) {
 
 /**
  * [searchSimpleFilter description]
- * @param  {string} type  [idem]
+ * @param  {string} indexType  [idem]
  * @param  {string} field [field you wanna query. can be sub.property like property.subproperty]
  * @param  {string} ref   [the value of the field you want to retrieve]
  * @return {Object}       [the result from elasticsearch database]
@@ -54,17 +56,19 @@ function search(type, query) {
      16
    )
  */
-function searchSimpleFilter (type, field, ref) {
+function searchSimpleFilter (indexType, field, ref) {
   const query = querySimpleFilter(field, ref)
-  return search(type, query)
+  return search(indexType, query)
 }
 
 
 
 
 /**
+ * ------------------------------------------------------------------------------------------------------------------------------
  * query definitions used in search function
- */
+ * ------------------------------------------------------------------------------------------------------------------------------
+*/
 
 function querySimpleFilter (field, ref, size = 1000) {
   return {
@@ -77,18 +81,61 @@ function querySimpleFilter (field, ref, size = 1000) {
   }
 }
 
+/**
+ * [function_createQuery will create the elasticsearch query for the mentioned dataSubset, according to the current state of the store]
+ * @param  {object} storeState [description, directly coming from the store, so reliable]
+ * @param  {string} dataSubset [string defined in the assets/configuration.json (already checked in the store action, so reliable)]
+ * @return {object}            [the query]
+ */
 function function_createQuery(storeState,dataSubset){
+  let query
+  switch (dataSubset) {
+    case 'int':
+      query = function_createQueryInt(storeState)
+      break;
+    case 'pre':
+      query = function_createQueryPre(storeState)
+      break;
+    case 'geo':
+      query = function_createQueryGeo(storeState)
+      break;
+    default:
+      query = function_createQueryInt(storeState)
+  }
+  return query;
+}
+
+
+
+function function_createQueryInt(storeState){
   let currentDepartment = storeState.filters.currentDepartment
   let currentCategorInter = storeState.filters.currentCategorInter
   let currentTimeAggregation = storeState.filters.currentTimeAggregation
   let currentGeoAggregation = storeState.filters.currentGeoAggregation
-
-  console.log(currentDepartment,currentCategorInter,currentTimeAggregation,currentGeoAggregation,dataSubset);
-
+  let type = 'sdis'+currentDepartment.toString()+'_'+currentGeoAggregation+'_'+currentCategorInter+'_'+currentTimeAggregation
+  console.log(type);
   return {
            "query": {
-               "match" : { "type" : "Feature" }
+              "type":{
+                "value":type
+              }
+               // "match" : { "type" :  }
            }
-       }
+         }
+}
 
+
+function function_createQueryGeo(storeState){
+  let currentDepartment = storeState.filters.currentDepartment
+  let currentGeoAggregation = storeState.filters.currentGeoAggregation
+  let type = 'sdis'+currentDepartment.toString()+'_'+currentGeoAggregation+'_'+currentCategorInter+'_'+currentTimeAggregation
+  console.log(type);
+  return {
+           "query": {
+              "type":{
+                "value":type
+              }
+               // "match" : { "type" :  }
+           }
+         }
 }
