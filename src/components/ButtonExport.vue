@@ -1,6 +1,6 @@
 <template>
-  <div id="ButtonExport">
-    <buttonprint v-on:click="clickEvent" v-bind:iconName="iconName"></buttonprint>
+  <div id="ButtonExport" v-on:click="clickEvent">
+    <buttonprint v-bind:iconName="iconName"></buttonprint>
   </div>
 </template>
 

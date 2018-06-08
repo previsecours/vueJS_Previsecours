@@ -1,6 +1,6 @@
 <template>
-  <div id="ButtonPrint">
-    <buttonprint v-on:click="clickEvent" v-bind:iconName="iconName"></buttonprint>
+  <div id="ButtonPrint" v-on:click="clickEvent">
+    <buttonprint v-bind:iconName="iconName"></buttonprint>
   </div>
 </template>
 
@@ -17,7 +17,8 @@ export default {
   },
   methods:{
     clickEvent: function(){
-      console.log('inside buttonprint');
+      console.log('test way to reload data from elasticserach - temporary');
+      this.$store.dispatch('reloadData',['geo','int'])
     }
   }
 }

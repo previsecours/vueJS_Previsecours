@@ -1,0 +1,8 @@
+{
+	"indexes": {
+		"con": "configuration",
+		"int": "interventions",
+		"pre": "predictions",
+		"geo": "geographies"
+	}
+}

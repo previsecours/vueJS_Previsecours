@@ -1,17 +1,9 @@
 import Vue from 'vue';
 import VueX from 'vuex';
+import es from './elasticsearch.js'
+import configuration from '../assets/configuration.json'
 
 Vue.use(VueX);
-
-import es from './elasticsearch.js'
-
-console.log(
-  es.searchSimpleFilter(
-    'geo',
-    'properties.OBJECTID',
-    16
-  )
-)
 
 export const store =  new VueX.Store({
   state:{
@@ -24,6 +16,7 @@ export const store =  new VueX.Store({
       currentCategorInter: 'suap',
       currentTimeAggregation: 'j',
       currentGeoAggregation: 'com',
+      currentDepartment:91,
     },
     /**
      * [initial zoom for map.]
@@ -33,7 +26,12 @@ export const store =  new VueX.Store({
       zoom:10
     },
     data:{
-
+      geo:{
+      },
+      int:{
+      },
+      pre:{
+      }
     },
     /**
      * [current status of the slider.
@@ -209,6 +207,9 @@ export const store =  new VueX.Store({
    filters_updateTimeAggregation:(state,newTimeAggregation) => {
        state.filters.currentTimeAggregation = newTimeAggregation;
    },
+   reloadData:(state,newData) => {
+       state.data[newData.dataSubset] = newData.elasticsearchResult;
+   },
  },
  actions: {
    filters_updateCategory: (context,newCategoryCode) => {
@@ -220,6 +221,35 @@ export const store =  new VueX.Store({
    filters_updateTimeAggregation:(context,newTimeAggregation) => {
        context.commit('filters_updateTimeAggregation',newTimeAggregation)
    },
+   // queryESPve (context) {
+   //    const state = context.state
+   //    const query = es.generateAggregatedQuery(state.criteria_list, context.getters.formatedDates, state.services_selected, constants.PVE, context.getters.view)
+   //    return es.search(constants.PVE, query)
+   //  },
+
+   getNewData(context,dataSubset){
+      let query = es.function_createQuery(context.state,dataSubset)
+      return es.search(dataSubset,query)
+    },
+    /*   getNewDataTest(context,dataSubset) {
+          return es.searchSimpleFilter(
+            dataSubset,
+            'type',
+            'Feature'
+            //'properties.OBJECTID',
+            //16
+          )
+        },
+    */
+
+    reloadData: (context,dataSubsets) => {
+      dataSubsets.forEach((dataSubset) => {
+        context.dispatch('getNewData',dataSubset).then(function(values){
+          let result = {'dataSubset':dataSubset,'elasticsearchResult':values};
+          context.commit('reloadData',result)
+        })
+      })
+    }
  }
 
 })
