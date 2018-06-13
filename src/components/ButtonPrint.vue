@@ -18,7 +18,7 @@ export default {
   methods:{
     clickEvent: function(){
       console.log('test way to reload data from elasticserach - temporary');
-      this.$store.dispatch('reloadData',['int'])
+      this.$store.dispatch('reloadData',['geo'])
     }
   }
 }

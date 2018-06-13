@@ -18,6 +18,7 @@ export default {
   methods:{
     clickEvent: function(){
       console.log('inside buttonprint');
+      this.$store.dispatch('reloadData',['pre'])
     }
   }
 }
