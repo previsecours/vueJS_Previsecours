@@ -112,7 +112,7 @@ function function_createQueryInt(storeState){
   let currentCategorInter = storeState.filters.currentCategorInter
   let currentTimeAggregation = storeState.filters.currentTimeAggregation
   let currentGeoAggregation = storeState.filters.currentGeoAggregation
-  let type = 'sdis'+currentDepartment.toString()+'_'+currentGeoAggregation+'_'+currentCategorInter+'_'+currentTimeAggregation
+  let type = 'function_createQueryInt - sdis'+currentDepartment.toString()+'_'+currentGeoAggregation+'_'+currentCategorInter+'_'+currentTimeAggregation
   console.log(type);
   return {
            "query": {
@@ -128,14 +128,29 @@ function function_createQueryInt(storeState){
 function function_createQueryGeo(storeState){
   let currentDepartment = storeState.filters.currentDepartment
   let currentGeoAggregation = storeState.filters.currentGeoAggregation
-  let type = 'sdis'+currentDepartment.toString()+'_'+currentGeoAggregation+'_'+currentCategorInter+'_'+currentTimeAggregation
+  let type = 'function_createQueryGeo - sdis'+currentDepartment.toString()+'_'+currentGeoAggregation
   console.log(type);
   return {
            "query": {
-              "type":{
-                "value":type
+             "match" : {
+                "geotype": currentGeoAggregation
               }
-               // "match" : { "type" :  }
+           }
+         }
+}
+
+function function_createQueryPre(storeState){
+  let currentDepartment = storeState.filters.currentDepartment
+  let currentCategorInter = storeState.filters.currentCategorInter
+  let currentTimeAggregation = storeState.filters.currentTimeAggregation
+  let currentGeoAggregation = storeState.filters.currentGeoAggregation
+  let type = 'function_createQueryPre - sdis'+currentDepartment.toString()+'_'+currentGeoAggregation+'_'+currentCategorInter+'_'+currentTimeAggregation
+  console.log(type);
+  return {
+           "query": {
+              "match" : {
+                "prediction_type" : type
+              }
            }
          }
 }
