@@ -46,7 +46,7 @@ export const store =  new VueX.Store({
        * Unix Timestamp (milliseconds)   ex: 1528620491576   ]
        * @type {Date}
        */
-      begin: new Date().getTime(),
+      begin: '',
       currentPosition:1
     },
     configuration:{
@@ -119,7 +119,7 @@ export const store =  new VueX.Store({
           name: 'semaine',
           nameCode: 's',
           description: 'aggregation par semaines',
-          timeRepetition:5,
+          timeRepetition:12,
           timeStepBetweenRepetitions: { type: 'days', step: 7},
           position: 2,
           show:true
@@ -128,7 +128,7 @@ export const store =  new VueX.Store({
           name: 'mois',
           nameCode: 'm',
           description: 'aggregation par mois',
-          timeRepetition:5,
+          timeRepetition:12,
           timeStepBetweenRepetitions: { type: 'months', step: 1},
           position: 3,
           show:true
@@ -137,7 +137,7 @@ export const store =  new VueX.Store({
           name: 'trimestre',
           nameCode: 't',
           description: 'aggregation par trimestres',
-          timeRepetition:5,
+          timeRepetition:4,
           timeStepBetweenRepetitions: { type: 'months', step: 3},
           position: 4,
           show:true
@@ -146,7 +146,7 @@ export const store =  new VueX.Store({
           name: 'an',
           nameCode: 'a',
           description: 'aggregation par ans',
-          timeRepetition:5,
+          timeRepetition:3,
           timeStepBetweenRepetitions: { type: 'months', step: 12},
           position: 5,
           show:true
@@ -210,16 +210,32 @@ export const store =  new VueX.Store({
    reloadData:(state,newData) => {
        state.data[newData.dataSubset] = newData.elasticsearchResult;
    },
+   slider_updateDateBegin:(state,newData) => {
+       state.slider.begin = newData;
+   },
+   slider_updateCurrentPosition:(state,newData) => {
+       state.slider.currentPosition = newData;
+   },
  },
  actions: {
    filters_updateCategory: (context,newCategoryCode) => {
        context.commit('filters_updateCategory',newCategoryCode)
+       context.dispatch('reloadData',['pre'])
    },
    filters_updateGeoAggregation:(context,newGeoAggregation) => {
        context.commit('filters_updateGeoAggregation',newGeoAggregation)
+       context.dispatch('reloadData',['geo'])
    },
    filters_updateTimeAggregation:(context,newTimeAggregation) => {
        context.commit('filters_updateTimeAggregation',newTimeAggregation)
+       context.dispatch('reloadData',['pre']).then(function(){
+          try {
+            console.log(context.state.data.pre);
+            let dateBegin = context.state.data.pre.hits.hits[0]._source.s_1_is
+            console.log('slider_updateDateBegin is now = ',dateBegin);
+            context.commit('slider_updateDateBegin',dateBegin)
+          } catch (e) { console.log('problem with state.data.pre.hits.hits[0]._source.s_1_is');}
+       })
    },
    /**
     * [getNewData will create the query and then fetch the result for one dataset like 'int'. dataSubset has been checked in the reloadData function, so no need to double check here]
@@ -232,16 +248,6 @@ export const store =  new VueX.Store({
       console.log(query, dataSubset);
       return es.search(dataSubset,query)
     },
-    /*   getNewDataTest(context,dataSubset) {
-          return es.searchSimpleFilter(
-            dataSubset,
-            'type',
-            'Feature'
-            //'properties.OBJECTID',
-            //16
-          )
-        },
-    */
     /**
      * [reloadData will trigger the elasticsearch request and update the store with the result]
      * @param  {object} context     [store context]

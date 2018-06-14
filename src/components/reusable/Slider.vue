@@ -23,128 +23,88 @@ export default {
     currentPosition: function(){
       return  this.$store.state.slider.currentPosition
     },
-    begin: function(){
-      return  this.$store.state.slider.begin
+    sliderRangeBegin: function(){
+      return 1
     },
-    beginHELP: function(){
-      return  new Date(this.begin).toLocaleDateString()
+    sliderRangeEnd: function(){
+      return this.timeAggregationConfiguration.timeRepetition
+    },
+    beginDate: function(){
+      return this.$store.state.slider.begin
     },
     timeAggregationConfiguration: function(){
-      return this.$store.getters.slider_timeAggregationConfiguration(this.$store.state.filters.currentTimeAggregation)
+      return this.$store.getters.slider_timeAggregationConfiguration(this.currentTimeAggregation)
     },
-    step : function(){
-      return  this.timeAggregationConfiguration.timeStepBetweenRepetitions.step *
-      this.timeAggregationConfiguration.timeRepetition
-    },
-    end: function() {
-      return this.$moment(this.begin).add(
-        this.step,
-        this.timeAggregationConfiguration.timeStepBetweenRepetitions.type ).valueOf();
-      //return new Date(new Date().setDate(new Date().getDate()+5)).getTime()
-    },
-    endHELP: function(){
-      return new Date(this.end).toLocaleDateString()
-    },
-
   },
   methods: {
     formatTooltip: function(val){
       let options, tooltip
+//new version
+      let timeStepBetweenRepetition = this.timeAggregationConfiguration.timeStepBetweenRepetitions
+      let timeFromDateBegin = this.$moment(this.beginDate).add(val * timeStepBetweenRepetition.step,timeStepBetweenRepetition.type).valueOf()
+//end new version
       let nameCode = this.timeAggregationConfiguration.nameCode
       switch (nameCode) {
         case 'j':
             options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            tooltip = new Date(val).toLocaleDateString("fr-FR",options)
+            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
           break;
         case 's':
             options = { weekday: 'short', month: 'long', day: 'numeric' };
-            tooltip = 'semaine debutant le ' + new Date(val).toLocaleDateString("fr-FR",options)
+            tooltip = 'semaine debutant le ' + new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
           break;
         case 'm':
             options = { year: 'numeric', month: 'long' };
-            tooltip = new Date(val).toLocaleDateString("fr-FR",options)
+            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
           break;
         case 't':
             options = { month: 'long' };
-            tooltip = 'trimestre debutant en ' + new Date(val).toLocaleDateString("fr-FR",options)
+            tooltip = 'trimestre debutant en ' + new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
           break;
         case 'a':
             options = { year: 'numeric'};
-            tooltip = new Date(val).toLocaleDateString("fr-FR",options)
+            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
           break;
         default:
             options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-            tooltip = new Date(val).toLocaleDateString("fr-FR",options)
+            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
       }
       return tooltip
-    },
-    formatStep: function(){
-      let stepDay = 1000 * 60 * 60 * 24
-      try {
-          switch (this.timeAggregationConfiguration.nameCode) {
-            case 'j':
-              stepDay *= 1
-              break;
-            case 's':
-              stepDay *= 7
-              break;
-            case 'm':
-              stepDay *= 31
-              break;
-            case 't':
-              stepDay *= 3 * 31
-              break;
-            case 'a':
-              stepDay *= 365
-              break;
-            default:
-              stepDay *= 1
-              break;
-          }
-      } catch (e) {
-        console.log('error in formatStep: ',e);
-      }
-      return stepDay;
     },
     updateSlider: function(){
       let vueCompo = this;
       this.$refs.slider.noUiSlider.updateOptions({
         range:{
-          min: vueCompo.begin,
-          max: vueCompo.end
+          min: vueCompo.sliderRangeBegin,
+          max: vueCompo.sliderRangeEnd
         },
-        step: vueCompo.formatStep(),
+        step: 1,
       })
     },
-    // setYear (type) {
-    //   this.$store.dispatch('set_dates', {
-    //     dates: [Math.floor(this.begin[type]), Math.floor(this.end[type])],
-    //     router: this.$router,
-    //     type: type
-    //   })
-    // }
   },
   watch: {
     currentTimeAggregation() {
       this.updateSlider()
     }
   },
-  mounted () {
+  mounted(){
+    let vueCompo = this;
     slider.create(this.$refs.slider, {
-      start: this.begin,//new Date(new Date().setDate(new Date().getDate()+3)).getTime(),
+      start: this.sliderRangeBegin,//new Date(new Date().setDate(new Date().getDate()+3)).getTime(),
       behaviour: 'tap-drag',
       connect: true,
       range: {
-        min: this.begin,
-        max: this.end
+        min: this.sliderRangeBegin,
+        max: this.sliderRangeEnd
       },
-      step: this.formatStep(),
+      step: 1,
       tooltips: [{ to: this.formatTooltip }],
       animate: true,
     })
-    // .on('update', function(){
-    //   console.log('this.begin, this.end', values);
-    // })
+    .on('update', function(values){
+      vueCompo.$store.commit('slider_updateCurrentPosition',parseInt(values[0]))
+      // console.log('values on update', values);
+    })
   }
 }
 </script>
