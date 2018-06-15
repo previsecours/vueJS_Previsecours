@@ -79,6 +79,7 @@ export default {
           max: vueCompo.sliderRangeEnd
         },
         step: 1,
+        start:1
       })
     },
   },
