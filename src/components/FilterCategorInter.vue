@@ -20,12 +20,12 @@ export default {
       return this.$store.state.configuration.categorInters;
     },
     firstSelected(){
-      return this.$store.state.configuration.categorInters[0];
+      return this.$store.state.configuration.categorInters.find( categorInter => categorInter.nameCode ===  this.$store.state.filters.currentCategorInter)
     }
   },
   methods:{
     filters_updateCategory(e){
-      this.$store.commit('filters_updateCategory',e.nameCode);
+      this.$store.dispatch('filters_updateCategory',e.nameCode);
       console.log( 'action a produire lorsque on selectionne une categorie d intervention de dropdown', e);
     }
   }

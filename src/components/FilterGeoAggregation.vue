@@ -20,12 +20,12 @@ export default {
       return this.$store.state.configuration.geoAggregations;
     },
     firstSelected(){
-      return this.$store.state.configuration.geoAggregations[0];
+      return this.$store.state.configuration.geoAggregations.find( geoAggregation => geoAggregation.nameCode ===  this.$store.state.filters.currentGeoAggregation)
     }
   },
   methods:{
     filters_updateGeoAggregation(e){
-      this.$store.commit('filters_updateGeoAggregation',e.nameCode);
+      this.$store.dispatch('filters_updateGeoAggregation',e.nameCode);
       console.log( 'action a produire lorsque on selectionne une geo aggregation de dropdown', e);
     }
   }

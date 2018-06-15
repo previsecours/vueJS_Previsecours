@@ -41,7 +41,7 @@ export default {
       let options, tooltip
 //new version
       let timeStepBetweenRepetition = this.timeAggregationConfiguration.timeStepBetweenRepetitions
-      let timeFromDateBegin = this.$moment(this.beginDate).add(val * timeStepBetweenRepetition.step,timeStepBetweenRepetition.type).valueOf()
+      let timeFromDateBegin = this.$moment( new Date(this.beginDate) ).add(val * timeStepBetweenRepetition.step,timeStepBetweenRepetition.type).valueOf()
 //end new version
       let nameCode = this.timeAggregationConfiguration.nameCode
       switch (nameCode) {

@@ -20,13 +20,13 @@ export default {
       return this.$store.state.configuration.timeAggregations;
     },
     firstSelected(){
-      return this.$store.state.configuration.timeAggregations[0];
+      return this.$store.state.configuration.timeAggregations.find( timeAggregation => timeAggregation.nameCode ===  this.$store.state.filters.currentTimeAggregation)
     }
   },
   methods:{
     filters_updateTimeAggregation(e){
       this.$store.dispatch('filters_updateTimeAggregation',e.nameCode);
-      console.log( 'action a produire si selection de: ', e);
+      console.log( 'action a produire si selection de ', e);
     }
   }
 }

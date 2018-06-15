@@ -14,7 +14,7 @@ export const store =  new VueX.Store({
     filters:{
       hideAllFilters: false,
       currentCategorInter: 'suap',
-      currentTimeAggregation: 'j',
+      currentTimeAggregation: 's',
       currentGeoAggregation: 'com',
       currentDepartment:91,
     },
