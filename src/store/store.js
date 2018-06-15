@@ -207,7 +207,7 @@ export const store =  new VueX.Store({
    filters_updateTimeAggregation:(state,newTimeAggregation) => {
        state.filters.currentTimeAggregation = newTimeAggregation;
    },
-   reloadData:(state,newData) => {
+   reloadData:(state,newData) => { console.log('result newData.elasticsearchResult', newData.elasticsearchResult);
        state.data[newData.dataSubset] = newData.elasticsearchResult;
    },
    slider_updateDateBegin:(state,newData) => {
@@ -227,14 +227,15 @@ export const store =  new VueX.Store({
        context.dispatch('reloadData',['geo'])
    },
    filters_updateTimeAggregation:(context,newTimeAggregation) => {
-       context.commit('filters_updateTimeAggregation',newTimeAggregation)
-       context.dispatch('reloadData',['pre']).then(function(){
-          try {
-            console.log(context.state.data.pre);
-            let dateBegin = context.state.data.pre.hits.hits[0]._source.s_1_is
-            console.log('slider_updateDateBegin is now = ',dateBegin);
-            context.commit('slider_updateDateBegin',dateBegin)
-          } catch (e) { console.log('problem with state.data.pre.hits.hits[0]._source.s_1_is');}
+       return new Promise((resolve, reject) => {
+           context.commit('filters_updateTimeAggregation',newTimeAggregation)
+           context.dispatch('reloadData',['pre']).then(function(){
+              try {
+                let dateBegin = context.state.data.pre.hits.hits[0]._source.s_1_is
+                context.commit('slider_updateDateBegin',dateBegin)
+                resolve()
+              } catch (e) { console.log('problem with state.data.pre.hits.hits[0]._source.s_1_is -> ',e);}
+           })
        })
    },
    /**
@@ -255,17 +256,21 @@ export const store =  new VueX.Store({
      * @return {object}             [nothing]
      */
     reloadData: (context,dataSubsets) => {
-      if(Array.isArray(dataSubsets)){
-        dataSubsets.forEach((dataSubset) => {
-          //here we make sure the dataSubset is one of those defined in the assets/configuration.json
-          if(typeof dataSubset === 'string' && typeof configuration.indexes[dataSubset] === 'string'){
-            context.dispatch('getNewData',dataSubset).then(function(values){
-              let result = {'dataSubset':dataSubset,'elasticsearchResult':values};
-              context.commit('reloadData',result)
+      return new Promise((resolve, reject) => {
+          if(Array.isArray(dataSubsets)){
+            dataSubsets.forEach((dataSubset, i) => {
+              //here we make sure the dataSubset is one of those defined in the assets/configuration.json
+              if(typeof dataSubset === 'string' && typeof configuration.indexes[dataSubset] === 'string'){
+                context.dispatch('getNewData',dataSubset).then(function(values){
+                  let result = {'dataSubset':dataSubset,'elasticsearchResult':values};
+                  context.commit('reloadData',result)
+                  //on reslve uniquement quand tout les commit sont effectues
+                  if (i === dataSubsets.length - 1) { resolve() }
+                })
+              }else { console.log('dataSubset: ',dataSubset,' needs to be part of the configuration json, like int or geo'); }
             })
-          }else { console.log('dataSubset: ',dataSubset,' needs to be part of the configuration json, like int or geo'); }
-        })
-      }else{ console.log('dataSubsets needs to be an array of string'); }
+          }else{ console.log('dataSubsets needs to be an array of string'); }
+      })
     }
  }
 

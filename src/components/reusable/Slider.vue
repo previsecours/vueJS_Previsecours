@@ -89,21 +89,23 @@ export default {
   },
   mounted(){
     let vueCompo = this;
-    slider.create(this.$refs.slider, {
-      start: this.sliderRangeBegin,//new Date(new Date().setDate(new Date().getDate()+3)).getTime(),
-      behaviour: 'tap-drag',
-      connect: true,
-      range: {
-        min: this.sliderRangeBegin,
-        max: this.sliderRangeEnd
-      },
-      step: 1,
-      tooltips: [{ to: this.formatTooltip }],
-      animate: true,
-    })
-    .on('update', function(values){
-      vueCompo.$store.commit('slider_updateCurrentPosition',parseInt(values[0]))
-      // console.log('values on update', values);
+    this.$store.dispatch('filters_updateTimeAggregation',this.$store.state.filters.currentTimeAggregation).then(() => {
+        slider.create(this.$refs.slider, {
+          start: this.sliderRangeBegin,//new Date(new Date().setDate(new Date().getDate()+3)).getTime(),
+          behaviour: 'tap-drag',
+          connect: true,
+          range: {
+            min: this.sliderRangeBegin,
+            max: this.sliderRangeEnd
+          },
+          step: 1,
+          tooltips: [{ to: this.formatTooltip }],
+          animate: true,
+        })
+        .on('update', function(values){
+          vueCompo.$store.commit('slider_updateCurrentPosition',parseInt(values[0]))
+          // console.log('values on update', values);
+        })
     })
   }
 }
