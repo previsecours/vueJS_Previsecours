@@ -10,9 +10,9 @@
           <span class="caret"></span>
         </li>
 
-        <ul class="dropdown-menu" v-if="showMenu">
+        <ul class="dropdown-menu closeDropdownIfOpen" v-if="showMenu">
             <li v-for="option in options">
-                <a href="javascript:void(0)" @click="updateOption(option)">
+                <a @click="updateOption(option)">
                     {{ option.name }}
                 </a>
             </li>
@@ -103,18 +103,17 @@ export default {
         box-shadow: none;
         border-radius: 0;
         list-style: none;
-        &:hover {
-          background: #e1e1e1;
-          cursor: pointer;
-        }
-
+    }
+    .dropdown-toggle:hover{
+      background: #e1e1e1;
+      cursor: pointer;
     }
 
 
     .dropdown-menu {
       position: absolute;
       bottom:100%;
-      left: 0;
+      right: 0;
       z-index: 1000;
       float: left;
       min-width: 160px;
@@ -139,11 +138,10 @@ export default {
         color: #636b6f;
         white-space: nowrap;
         text-decoration: none;
-
-        &:hover {
-            background: #efefef;
-            color: #409FCB;
-        }
+    }
+    .dropdown-menu > li > a:hover{
+        background: #efefef !important;
+        color: #409FCB;
     }
 
     .dropdown-menu > li {
@@ -161,8 +159,9 @@ export default {
       height: 0;
       margin-left: 2px;
       vertical-align: middle;
-      border-top: 4px dashed;
-      border-top: 4px solid \9;
+      /* border-top: 4px dashed;
+      border-top: 4px solid \9; */
+      border-bottom: 4px solid #636b6f;
       border-right: 4px solid transparent;
       border-left: 4px solid transparent;
       float: right;
