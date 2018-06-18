@@ -120,7 +120,8 @@ function function_createQueryInt(storeState){
                 "value":type
               }
                // "match" : { "type" :  }
-           }
+           },
+           size: 1000
          }
 }
 
@@ -135,7 +136,8 @@ function function_createQueryGeo(storeState){
              "match" : {
                 "geotype": currentGeoAggregation
               }
-           }
+           },
+           size: 1000
          }
 }
 
@@ -151,6 +153,7 @@ function function_createQueryPre(storeState){
               "match" : {
                 "prediction_type" : type
               }
-           }
+           },
+           size: 1000
          }
 }
