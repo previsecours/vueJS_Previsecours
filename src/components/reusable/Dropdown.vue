@@ -22,6 +22,7 @@
 
 <script>
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import {bus_filters} from '../../store/bus_filters.js'
 export default {
     components:{
       FontAwesomeIcon
@@ -49,6 +50,7 @@ export default {
         {
             this.placeholderText = this.placeholder;
         }
+        bus_filters.$on('i-got-clicked', () => {this.showMenu = false})
     },
     methods: {
         updateOption(option) {
@@ -57,6 +59,7 @@ export default {
             this.$emit('updateOption', this.selectedOption);
         },
         toggleMenu() {
+          if(this.showMenu === false) bus_filters.$emit('i-got-clicked', 'if you listen to this, please close yourself')
           this.showMenu = !this.showMenu;
         }
     },
