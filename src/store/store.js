@@ -231,10 +231,10 @@ export const store =  new VueX.Store({
            context.commit('filters_updateTimeAggregation',newTimeAggregation)
            context.dispatch('reloadData',['pre']).then(function(){
               try {
-                let dateBegin = context.state.data.pre.hits.hits[0]._source.s_1_is
+                let dateBegin = context.state.data.pre.hits.hits[0]._source.pre_001_is
                 context.commit('slider_updateDateBegin',dateBegin)
                 resolve()
-              } catch (e) { console.log('problem with state.data.pre.hits.hits[0]._source.s_1_is -> ',e);}
+              } catch (e) { console.log('problem with state.data.pre.hits.hits[0]._source.pre_001_is -> ',e);}
            })
        })
    },

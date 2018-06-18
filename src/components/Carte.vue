@@ -21,7 +21,7 @@ import {LMap, LTileLayer, LMarker, LGeoJson } from 'vue2-leaflet'
 // }
 
 // function style(feature) {
-//     var varForColorization = (feature.properties.prediction.s_1) ? parseFloat(feature.properties.prediction.s_1) : 0;
+//     var varForColorization = (feature.properties.prediction.pre_1) ? parseFloat(feature.properties.prediction.pre_1) : 0;
 //     var colorCoded = '#ffffff';
 //         // colorCoded = _perc2colorRED(Math.round( varForColorization / 1 ), 100);
 //     return {
@@ -153,7 +153,8 @@ export default {
           const threePoints = (feature.properties.nom.length > 12) ? "..." : "";
           let prediction
           try {
-            prediction = feature.properties.prediction['s_'+feature.properties.currentPosition]
+            let currentPositionFormatted = ('000' + feature.properties.currentPosition).slice(-3)
+            prediction = feature.properties.prediction['pre_'+currentPositionFormatted]
           } catch (e) { console.log(e.toString(),'\r\r    \r',feature.properties.nom);
             prediction = 'non disponible'
           }
