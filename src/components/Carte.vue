@@ -113,6 +113,9 @@ export default {
     currentPosition(){
       return this.$store.state.slider.currentPosition;
     },
+    dataHasBeenUpdated(){
+      return this.$store.state.dataHasBeenUpdated;
+    },
     options(){
       let options = this.options_bases
       options.currentPosition = this.currentPosition
@@ -168,11 +171,9 @@ export default {
       let map = this.$refs.map.mapObject;
       // we need to split between first load and refresh, since on first load it has to wait for geoson request to finish
       if(this.geojson_layer === undefined) {
-        console.log('intial');
         map.removeLayer(this.$refs.firstLoadgeojson.mapObject)
         this.geojson_layer = L.geoJSON(this.geojson, this.options).addTo(map);
       }else{
-        console.log('relaod');
         map.removeLayer(this.geojson_layer)
         this.geojson_layer = L.geoJSON(this.geojson, this.options).addTo(map);
       }
@@ -180,6 +181,9 @@ export default {
   },
   watch: {
     currentPosition() {
+      this.refreshGeoJson()
+    },
+    dataHasBeenUpdated(){
       this.refreshGeoJson()
     }
   },

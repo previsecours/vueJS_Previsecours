@@ -33,6 +33,7 @@ export const store =  new VueX.Store({
       pre:{
       }
     },
+    dataHasBeenUpdated: 0,
     /**
      * [current status of the slider.
      * Initial value defined here as well.]
@@ -209,6 +210,7 @@ export const store =  new VueX.Store({
    },
    reloadData:(state,newData) => { console.log('result newData.elasticsearchResult', newData.elasticsearchResult);
        state.data[newData.dataSubset] = newData.elasticsearchResult;
+       state.dataHasBeenUpdated += 1
    },
    slider_updateDateBegin:(state,newData) => {
        state.slider.begin = newData;
