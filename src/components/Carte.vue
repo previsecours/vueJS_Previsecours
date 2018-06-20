@@ -73,6 +73,7 @@ export default {
           }
         }
       },
+      styleScaleType: 'perClass_green2red',
       geojson_layer: undefined,
 
 
@@ -118,6 +119,7 @@ export default {
     },
     options(){
       let options = this.options_bases
+      options.style = this.getStyle(this.styleScaleType)
       options.currentPosition = this.currentPosition
       options.onEachFeature = this.onEachFeature
       return options
@@ -154,14 +156,15 @@ export default {
     onEachFeature(feature, layer){
       if (feature.properties && feature.properties.nom) {
           const threePoints = (feature.properties.nom.length > 12) ? "..." : "";
-          let prediction
+          let predictionInter = 'non disponible', classeInter = 'non disponible', moy3ansInter = 'non disponible'
           try {
-            let currentPositionFormatted = ('000' + feature.properties.currentPosition).slice(-3)
-            prediction = feature.properties.prediction['pre_'+currentPositionFormatted]
-          } catch (e) { console.log(e.toString(),'\r\r    \r',feature.properties.nom);
-            prediction = 'non disponible'
-          }
-          layer.bindPopup("<div><i class='icon-ambulance'></i> " + prediction + "</div> <i class='leaflet-title'>" + feature.properties.nom.slice(0, 12) + threePoints +"</i>");
+            let pre = feature.properties.prediction
+            let pos = this.formatCurrentPosition(feature.properties.currentPosition)
+            predictionInter = pre['pre_'+pos]
+            classeInter = pre['cla_'+pos]
+            // moy3ansInter =
+          } catch (e) { console.log(e.toString(),'\r\r    \r',feature.properties.nom);  }
+          layer.bindPopup("<div>" + predictionInter + " interventions predites <p> <p>Reference pour cette periode: NA </p> classe: " + this.int2classe(classeInter) + " </p></div> <i class='leaflet-title'>" + feature.properties.nom.slice(0, 12) + threePoints +"</i>");
       }
       // layer.on({
       //   click: this.testfct(layer)
@@ -177,6 +180,82 @@ export default {
         map.removeLayer(this.geojson_layer)
         this.geojson_layer = L.geoJSON(this.geojson, this.options).addTo(map);
       }
+    },
+    getStyle(style){
+      let styleFct
+      switch (style) {
+        case 'perClass_green2red':
+          let color = '#e4ce7f'
+          return (feature) => {
+            try {
+              let pos = feature.properties.currentPosition
+              let pre = feature.properties.prediction
+              color = this.green2red(pre['cla_'+this.formatCurrentPosition(pos)])
+            } catch (e) {console.log('feature not ready OR bug'); }
+            return {
+              weight: 1,
+              color: '#FFFAFA',
+              opacity: 0.9,
+              dashArray: '2',
+              fillColor: color,
+              fillOpacity: 0.5
+            }
+          }
+          break;
+        default:
+          styleFct = this.options_bases.style
+      }
+      return styleFct
+    },
+    //Here we set up small function that are helpers to other functions
+    formatCurrentPosition(currentPosition){
+      return ('000' + currentPosition).slice(-3)
+    },
+    green2red(i){
+      let res
+      switch (i) {
+        case 1:
+          res = '#7fe4a1'
+          break;
+        case 2:
+          res = '#02b93f'
+          break;
+        case 3:
+          res = '#ffffff'
+          break;
+        case 4:
+          res = '#f58888'
+          break;
+        case 5:
+          res = '#ff1818'
+          break;
+        default:
+          res = '#7fe4a1'
+      }
+      return res
+    },
+    int2classe(i){
+      let res
+      switch (i) {
+        case 1:
+          res = 'tres faible'
+          break;
+        case 2:
+          res = 'faible'
+          break;
+        case 3:
+          res = 'moyenne'
+          break;
+        case 4:
+          res = 'forte'
+          break;
+        case 5:
+          res = 'exceptionelle'
+          break;
+        default:
+          res = 'moyenne'
+      }
+      return res
     }
   },
   watch: {
