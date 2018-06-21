@@ -26,3 +26,9 @@ fake some data prediction so that is looks cool:
 ``` bash
 mlr --json --ojson put -S 'if(is_not_null($cla_001)){ $cla_003 = urandint(1,5); $cla_002 = urandint(1,5); $cla_001 = urandint(1,5); $cla_004 = urandint(1,5); $cla_005 = urandint(1,5); $geo_id = "&&&" . string($geo_id)  }' dummyPredictions_forElasticSearch.json > dummyPredictions_forElasticSearch2.json
 ```
+ne pas oublier de suppr les &&& !!!
+
+
+
+Pour la preparation du geojson departements avant insert en bulk: penser a remplacer les "CODE_DEPT" par "code"
+Pour la preparation du geojson zones de couverture avant insert en bulk: penser a remplacer les "OBJECTID" qui vient du systeme SDIS91 par "code"
