@@ -31,4 +31,9 @@ ne pas oublier de suppr les &&& !!!
 
 
 Pour la preparation du geojson departements avant insert en bulk: penser a remplacer les "CODE_DEPT" par "code"
-Pour la preparation du geojson zones de couverture avant insert en bulk: penser a remplacer les "OBJECTID" qui vient du systeme SDIS91 par "code"
+
+Pour la preparation du geojson zones de couverture avant insert en bulk: penser a remplacer les "OBJECTID" qui vient du systeme SDIS91 par "code" et "CS_COD" en "nom"
+``` bash
+awk '{gsub("CS_COD", "nom", $0); print}' zoneDeCouvertureGeometry_forElasticSearch.json > zoneDeCouvertureGeometry_forElasticSearch_modified.json
+```
+penser aussi a ajouter "codeDepartement":"91" dans les geometries
