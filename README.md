@@ -10,6 +10,7 @@ npm install
 ## Run
 ``` bash
 # serve with hot reload at localhost:8080
+# port can be changed in webpack.config.js , devServer section
 npm run dev
 
 # build for production with minification
