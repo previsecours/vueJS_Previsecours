@@ -12,7 +12,10 @@
 
         <ul class="dropdown-menu closeDropdownIfOpen" v-if="showMenu">
             <li v-for="option in options">
-                <a @click="updateOption(option)">
+                <a class="disabled" v-if="!option.available">
+                    {{ option.name }}
+                </a>
+                <a @click="updateOption(option)" v-if="option.available">
                     {{ option.name }}
                 </a>
             </li>
@@ -72,6 +75,16 @@ export default {
 </script>
 
 <style scoped>
+    .disabled {
+        cursor: not-allowed;
+        opacity: .65;
+        box-shadow: none;
+    }
+    .disabled:hover{
+      background: inherit;
+      background: #636b6f !important;
+      color: inherit;
+    }
 
     .btn-group {
         min-width: 160px;

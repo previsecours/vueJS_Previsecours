@@ -67,28 +67,32 @@ export const store =  new VueX.Store({
           nameCode: 'suap',
           description: 'Secours a personne',
           position: 1,
-          show:true
+          show:true,
+          available:true
         },
         {
           name: 'Accident',
           nameCode: 'acci',
           description: 'Accident de la route',
           position: 2,
-          show:true
+          show:true,
+          available:true
         },
         {
           name: 'Incendie Urb',
           nameCode: 'incu',
           description: 'Incendie en milieu urbain',
           position: 3,
-          show:true
+          show:true,
+          available:true
         },
         {
           name: 'Incendie Nat',
           nameCode: 'incn',
           description: 'Incendie en milieu naturel',
           position: 4,
-          show:true
+          show:true,
+          available:true
         }
       ],
       /**
@@ -114,7 +118,8 @@ export const store =  new VueX.Store({
           timeRepetition:5,
           timeStepBetweenRepetitions: { type: 'days', step: 1},
           position: 1,
-          show:true
+          show:true,
+          available:true
         },
         {
           name: 'semaine',
@@ -123,7 +128,8 @@ export const store =  new VueX.Store({
           timeRepetition:12,
           timeStepBetweenRepetitions: { type: 'days', step: 7},
           position: 2,
-          show:true
+          show:true,
+          available:true
         },
         {
           name: 'mois',
@@ -132,7 +138,8 @@ export const store =  new VueX.Store({
           timeRepetition:12,
           timeStepBetweenRepetitions: { type: 'months', step: 1},
           position: 3,
-          show:true
+          show:true,
+          available:false
         },
         {
           name: 'trimestre',
@@ -141,7 +148,8 @@ export const store =  new VueX.Store({
           timeRepetition:4,
           timeStepBetweenRepetitions: { type: 'months', step: 3},
           position: 4,
-          show:true
+          show:true,
+          available:false
         },
         {
           name: 'an',
@@ -150,7 +158,8 @@ export const store =  new VueX.Store({
           timeRepetition:3,
           timeStepBetweenRepetitions: { type: 'months', step: 12},
           position: 5,
-          show:true
+          show:true,
+          available:false
         }
       ],
       geoAggregations:[
@@ -159,21 +168,24 @@ export const store =  new VueX.Store({
           nameCode: 'dpt',
           description: 'aggregation par departement',
           position: 1,
-          show:true
+          show:true,
+          available:false
         },
         {
           name: 'zone de couverture',
           nameCode: 'zdc',
           description: 'aggregation par zone de couverture',
           position: 2,
-          show:true
+          show:true,
+          available:true
         },
         {
           name: 'commune',
           nameCode: 'com',
           description: 'aggregation par commune',
           position: 3,
-          show:true
+          show:true,
+          available:true
         }
       ]
     }
