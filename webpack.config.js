@@ -76,4 +76,26 @@ if (process.env.NODE_ENV === 'production') {
       minimize: true
     })
   ])
+}else if (process.env.NODE_ENV === 'development') {
+  // let processEnvReplication = {
+  //   NODE_ENV: 'development',
+  //   ES_HOST: 'http://previsecours.fr.local:80/api/',
+  //   PATH: '/av/test',
+  //   ES_PATH: '/api/'
+  // }
+  // let processEnv = {}
+  // for(var prop in processEnvReplication) {
+  //   processEnv[prop] = JSON.stringify(process.env[prop])
+  // }
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+        ES_HOST: JSON.stringify('http://previsecours.fr.local:80/api/'),
+        PATH: JSON.stringify('/av/test'),
+        ES_PATH: JSON.stringify('/api/')
+      }
+    })
+  ])
+
 }
