@@ -4,9 +4,10 @@ export default { search, searchSimpleFilter, function_createQuery }
 
 let protocol = window.location.protocol  //previsecours.fr.local
 let host = window.location.host  // http:
-let port = (location.port) ? location.port: '80'
-let url = protocol + '//' + host + ':' + port + '/api/'
-console.log( 'url for ES', url, window.location);
+let port = (window.location.port) ? window.location.port: '80'
+let apiPath = (process.env.ES_PATH) ? process.env.ES_PATH : '/api/'
+let url = protocol + '//' + host + ':' + port + apiPath
+console.log( 'url for elasticsearch config', url);
 
 const client = new elasticsearch.Client({
   host: url,
