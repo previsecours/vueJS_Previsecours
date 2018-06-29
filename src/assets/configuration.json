@@ -1,7 +1,0 @@
-{
-	"indexes": {
-		"int": "interventions",
-		"pre": "predictions",
-		"geo": "geographies"
-	}
-}

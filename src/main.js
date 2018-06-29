@@ -1,19 +1,15 @@
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './components/App.vue'
-import {store} from './store/store'
+import App from './App'
+import router from './router'
 
-// adding the fontawsome globally to the project:
-import fontawesome from '@fortawesome/fontawesome'
-import brands from '@fortawesome/fontawesome-free-solid'
-import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
-fontawesome.library.add(brands, faSpinner)
+Vue.config.productionTip = false
 
-//so that we can user momentJS in every vues: with {{ $moment() }} ou this.moment()
-import VueMomentLib from 'vue-moment-lib';
-Vue.use(VueMomentLib);
-
+/* eslint-disable no-new */
 new Vue({
-  store: store,
-  el: '#previsecoursMainApp',
-  render: h => h(App)
+  el: '#app',
+  router,
+  components: { App },
+  template: '<App/>'
 })
