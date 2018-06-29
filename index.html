@@ -1,12 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr" style="width:100%;height: 100%">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>vuejs_previsecours</title>
+    <!-- <link rel="stylesheet" href="static/css/bootstrap.min.css"> -->
+    <title>Previsecours</title>
+    <link rel="icon" href="static/favicon.png">
   </head>
-  <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+  <body style="width:100%;height: 100%; margin:0px">
+    <div id="previsecoursMainApp">
+      <div style="text-align: center;position: fixed; left: 0;right:0;top:300px;">
+          <img src="static/boulecristal.svg" alt="predire le futur">
+            <br>
+            <br>
+          <div style="display:none;" id="infoNotWorking">
+            Si vous avez le temps de lire ce message, cela signifie probablement que votre navigateur n'est pas compatible...
+            <br>
+            Pour profiter de l'outil, il vous faudra le mettre à jour (Firefox 45 ou supérieur).
+          </div>
+      </div>
+      <!-- <router-view></router-view> -->
+    </div>
+    <script src="/dist/build.js"></script>
   </body>
 </html>
+
+
+<script>
+  setTimeout(function(){
+    if(document.getElementById("infoNotWorking")){
+      document.getElementById("infoNotWorking").style.display = "block";
+    }
+  }, 8000);
+</script>
