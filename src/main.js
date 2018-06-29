@@ -11,6 +11,9 @@ import brands from '@fortawesome/fontawesome-free-solid'
 import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner'
 fontawesome.library.add(brands, faSpinner)
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 //so that we can user momentJS in every vues: with {{ $moment() }} ou this.moment()
 import VueMomentLib from 'vue-moment-lib';
 Vue.use(VueMomentLib);
