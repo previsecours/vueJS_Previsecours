@@ -83,6 +83,12 @@ export const store = new VueX.Store({
           description: 'Incendie en milieu naturel',
           position: 4,
           show: true
+        }, {
+          name: 'Incendie & Accident',
+          nameCode: 'c_ia',
+          description: 'Incendie (naturel et urbain) et accident',
+          position: 5,
+          show: true
         }
       ],
       /**
