@@ -1,23 +1,26 @@
 # vuejs_previsecours
+
 > Front app for previsecours project
 
 ## Build Setup
+
 ``` bash
 # install dependencies
 npm install
-```
 
-## Run
-``` bash
 # serve with hot reload at localhost:8080
 # port can be changed in webpack.config.js , devServer section
 npm run dev
 
 # build for production with minification
 npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
 ```
 
 ## Fill the ES database with some dataset
+
 ``` bash
 curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary "@PATHTOFOLDER/vueJS_Previsecours/src/assets/testSet_forElasticSearch.json";
 ```

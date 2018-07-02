@@ -2,8 +2,15 @@ import elasticsearch from 'elasticsearch'
 import configuration from '../assets/configuration.json'
 export default { search, searchSimpleFilter, function_createQuery }
 
+let protocol = window.location.protocol  //previsecours.fr.local
+let host = window.location.host  // http:
+let port = (window.location.port) ? window.location.port: '80'
+let apiPath = (process.env.ES_PATH) ? process.env.ES_PATH : '/api/'
+let url = protocol + '//' + host + ':' + port + apiPath
+console.log( 'url for elasticsearch config', url);
+
 const client = new elasticsearch.Client({
-  host: process.env.ES_HOST,
+  host: url,
   apiVersion: '5.6'
 })
 
