@@ -15,6 +15,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
     "@fortawesome/vue-fontawesome": "^0.1.0",
+    "dom-to-image": "^2.6.0",
     "elasticsearch": "^15.0.0",
     "nouislider": "^11.1.0",
     "vue": "^2.5.2",
