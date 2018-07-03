@@ -73,7 +73,7 @@ export const store = new VueX.Store({
           description: 'Accident de la route',
           position: 2,
           show:true,
-          available:true
+          available:false
         },
         {
           name: 'Incendie Urb',
@@ -81,7 +81,7 @@ export const store = new VueX.Store({
           description: 'Incendie en milieu urbain',
           position: 3,
           show:true,
-          available:true
+          available:false
         },
         {
           name: 'Incendie Nat',
@@ -89,7 +89,7 @@ export const store = new VueX.Store({
           description: 'Incendie en milieu naturel',
           position: 4,
           show:true,
-          available:true
+          available:false
         },
         {
           name: 'Incendie & Accident',
@@ -127,7 +127,7 @@ export const store = new VueX.Store({
           },
           position: 1,
           show:true,
-          available:true
+          available:false
         },
         {
           name: 'semaine',
@@ -197,7 +197,7 @@ export const store = new VueX.Store({
           description: 'aggregation par zone de couverture',
           position: 2,
           show:true,
-          available:true
+          available:false
         },
         {
           name: 'commune',
