@@ -4,7 +4,7 @@ export default { search, searchSimpleFilter, function_createQuery }
 
 let protocol = window.location.protocol  //previsecours.fr.local
 let host = window.location.host  // http:
-let port = (window.location.port) ? window.location.port: '80'
+let port = (protocol === 'https') ? '443': '80'
 let apiPath = (process.env.ES_PATH) ? process.env.ES_PATH : '/api/'
 let url = protocol + '//' + host + ':' + port + apiPath
 // testing purposes: we remove the :80 (was not working on viz.previsecours.fr )
