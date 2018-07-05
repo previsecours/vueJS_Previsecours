@@ -7,10 +7,12 @@ let host = window.location.host  // http:
 let port = (window.location.port) ? window.location.port: '80'
 let apiPath = (process.env.ES_PATH) ? process.env.ES_PATH : '/api/'
 let url = protocol + '//' + host + ':' + port + apiPath
-console.log( 'url for elasticsearch config', url);
+// testing purposes: we remove the :80 (was not working on viz.previsecours.fr )
+let url2 = protocol + '//' + host + apiPath
+console.log( 'url for elasticsearch config', url2);
 
 const client = new elasticsearch.Client({
-  host: url,
+  host: url2,
   apiVersion: '5.6'
 })
 
