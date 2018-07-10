@@ -135,13 +135,13 @@ export default {
         try {
           let pre = feature.properties.prediction
           let pos = this.formatCurrentPosition(feature.properties.currentPosition)
-          predictionInter = pre['pre_' + pos]
-          classeInter = pre['cla_' + pos]
-          // moy3ansInter =
+          predictionInter = pre['pre_' + pos] || predictionInter
+          classeInter = pre['cla_' + pos] || classeInter
+          moy3ansInter = pre['po_' + pos] || moy3ansInter
         } catch (e) {
           console.log(e.toString(), '\r\r    \r', feature.properties.nom);
         }
-        layer.bindPopup("<div>" + predictionInter + " interventions predites <p> <p>Reference pour cette periode: NA </p> classe: " + this.int2classe(classeInter) + " </p></div> <i class='leaflet-title'>" + feature.properties.nom.slice(0, 12) +
+        layer.bindPopup("<div>" + predictionInter + " interventions predites <p> <p>Reference pour cette periode: "+ moy3ansInter +" </p> classe: " + this.int2classe(classeInter) + " </p></div> <i class='leaflet-title'>" + feature.properties.nom.slice(0, 12) +
           threePoints + "</i>");
       }
       // layer.on({
