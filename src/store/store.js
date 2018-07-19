@@ -16,7 +16,8 @@ export const store = new VueX.Store({
       currentCategorInter: 'suap',
       currentTimeAggregation: 's',
       currentGeoAggregation: 'com',
-      currentDepartment: 91
+      currentDepartment: 91,
+      showCasernes: true
     },
     /**
      * [initial zoom for map.]
@@ -28,7 +29,8 @@ export const store = new VueX.Store({
     data: {
       geo: {},
       int: {},
-      pre: {}
+      pre: {},
+      cas: {}
     },
     dataHasBeenUpdated: 0,
     /**
@@ -252,6 +254,9 @@ export const store = new VueX.Store({
     },
     slider_updateCurrentPosition: (state, newData) => {
       state.slider.currentPosition = newData;
+    },
+    toogleCasernes: (state) => {
+      state.filters.showCasernes =  !state.filters.showCasernes
     }
   },
   actions: {
@@ -318,6 +323,21 @@ export const store = new VueX.Store({
         } else {
           console.log('dataSubsets needs to be an array of string');
         }
+      })
+    },
+    loadCasernes: (context) => {
+      console.log('on est dans toogleCasernes');
+      return new Promise((resolve, reject) => {
+        let query = es.function_createQueryLoadCasernes(context.state.filters.currentDepartment)
+        es.search('geo', query).then(function(values) {
+          let result = {
+            'dataSubset': 'cas',
+            'elasticsearchResult': values
+          };
+          context.commit('reloadData', result)
+          //on reslve uniquement quand tout les commit sont effectues
+          resolve()
+        })
       })
     }
   }

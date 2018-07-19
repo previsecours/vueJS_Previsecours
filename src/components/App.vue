@@ -5,6 +5,7 @@
     <Slider></Slider>
     <ButtonPrint></ButtonPrint>
     <ButtonExport></ButtonExport>
+    <ButtonCasernes></ButtonCasernes>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import Filters from './Filters.vue'
 import Slider from './reusable/Slider.vue'
 import ButtonPrint from './ButtonPrint.vue'
 import ButtonExport from './ButtonExport.vue'
+import ButtonCasernes from './ButtonCasernes.vue'
 export default {
   components: {
     Carte,
@@ -21,6 +23,7 @@ export default {
     Slider,
     ButtonPrint,
     ButtonExport,
+    ButtonCasernes,
   },
 }
 </script>

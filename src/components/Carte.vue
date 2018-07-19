@@ -3,6 +3,7 @@
   <l-map style="height: 100%" :zoom="zoom" :center="center" ref="map">
     <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
     <l-geo-json ref='firstLoadgeojson' :geojson="geojson" :options="options"></l-geo-json>
+    <l-geo-json ref='loadCasernesgeojson' :geojson="geojson_forCasernes" :options="options" :visible="showCasernes"></l-geo-json>
   </l-map>
 </div>
 </template>
@@ -59,6 +60,9 @@ export default {
     dataHasBeenUpdated() {
       return this.$store.state.dataHasBeenUpdated;
     },
+    showCasernes() {
+      return this.$store.state.filters.showCasernes;
+    },
     options() {
       let options = this.options_bases
       options.style = this.getStyle(this.styleScaleType)
@@ -97,6 +101,25 @@ export default {
               "code": "49195"
             }
           }]
+        }
+      }
+    },
+    geojson_forCasernes() {
+      try {
+        let features_fromES = this.$store.state.data.cas.hits.hits;
+        let FeatureCollection = {
+          "type": "FeatureCollection",
+          "features": []
+        }
+        features_fromES.map((feature) => {
+          FeatureCollection.features.push(feature._source)
+        });
+        return FeatureCollection
+      } catch (e) {
+        console.log(' Carte.vue error', e.toString().slice(0,100));
+        return {
+          "type": "FeatureCollection",
+          "features": []
         }
       }
     },

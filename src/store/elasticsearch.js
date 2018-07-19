@@ -1,6 +1,6 @@
 import elasticsearch from 'elasticsearch'
 import configuration from '../assets/configuration.json'
-export default { search, searchSimpleFilter, function_createQuery }
+export default { search, searchSimpleFilter, function_createQuery, function_createQueryLoadCasernes }
 
 let protocol = window.location.protocol  //previsecours.fr.local
 let host = window.location.host  // http:
@@ -165,4 +165,26 @@ function function_createQueryPre(storeState){
            },
            size: 1000
          }
+}
+
+function function_createQueryLoadCasernes(dpt){
+  return {
+            "query": {
+              "bool" : {
+                "must" : [
+                  {
+                    "match" : {
+                      "geotype" : "cas"
+                    }
+                  },
+                  {
+                    "match":{
+                      "properties.codeDepartement" : dpt
+                    }
+                  }
+                ]
+              }
+            },
+            size: 1000
+          }
 }
