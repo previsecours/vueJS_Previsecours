@@ -109,7 +109,7 @@ export default {
   margin-bottom: 7px;
   border: 0;
   background-image: linear-gradient(#009688, #009688), linear-gradient(#D2D2D2, #D2D2D2);
-  background-size: 0 2px, 100% 1px;
+  background-size: 0 2px, 100% 0px;
   background-repeat: no-repeat;
   background-position: center bottom, center calc(100% - 1px);
   background-color: transparent;
