@@ -50,7 +50,7 @@ export default {
             tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
           break;
         case 's':
-            options = { weekday: 'short', month: 'long', day: 'numeric' };
+            options = { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric'};
             tooltip = 'semaine debutant le ' + new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
           break;
         case 'm':
@@ -58,7 +58,7 @@ export default {
             tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
           break;
         case 't':
-            options = { month: 'long' };
+            options = { month: 'long', year: 'numeric' };
             tooltip = 'trimestre debutant en ' + new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
           break;
         case 'a':
