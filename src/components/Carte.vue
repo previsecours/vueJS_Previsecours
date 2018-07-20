@@ -3,7 +3,7 @@
   <l-map style="height: 100%" :zoom="zoom" :center="center" ref="map">
     <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
     <l-geo-json ref='firstLoadgeojson' :geojson="geojson" :options="options"></l-geo-json>
-    <l-geo-json ref='loadCasernesgeojson' :geojson="geojson_forCasernes" :options="options" :visible="showCasernes"></l-geo-json>
+    <l-geo-json ref='loadCasernesgeojson' :geojson="geojson_forCasernes" :options="options_casernes" :visible="showCasernes"></l-geo-json>
   </l-map>
 </div>
 </template>
@@ -14,7 +14,6 @@ import {
   LTileLayer,
   LGeoJson
 } from 'vue2-leaflet'
-
 
 // we define the main vue js script
 export default {
@@ -44,6 +43,35 @@ export default {
             fillColor: '#e4ce7f',
             fillOpacity: 0.5
           }
+        }
+      },
+      options_casernes: {
+        pointToLayer: function (feature, latlng) {
+          let importanceDuCentre = 1;
+          switch (feature.properties.TYP_CS_COD) {
+            case 'CSP':
+              importanceDuCentre = 3
+              break;
+            case 'CS':
+              importanceDuCentre = 2
+              break;
+            case 'CPI':
+              importanceDuCentre = 1
+              break;
+          }
+          let sizeMultiplier = 1 + importanceDuCentre / 3
+
+          let caserneIcon = L.icon({
+            iconUrl: 'static/caserne.png',
+            iconSize: [10 * sizeMultiplier, 15 * sizeMultiplier],
+            iconAnchor: [16, 37],
+            popupAnchor: [-15, -35]
+          });
+          return L.marker(latlng, {icon: caserneIcon });
+        },
+        onEachFeature: (feature, layer) =>  {
+
+          layer.bindPopup("<div>"+feature.properties.NOM+" ("+feature.properties.TYP_CS_COD+") </div> <i class='leaflet-title'> groupement "+feature.properties.GROUPEMENT+" </i>");
         }
       },
       styleScaleType: 'perClass_green2red',

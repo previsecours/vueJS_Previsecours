@@ -1,15 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg [
-	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
-	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
-	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
-	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
-	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
-	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
-	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
-	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
-]>
 <svg version="1.2" baseProfile="tiny" id="レイヤー_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="568px" height="640px"
 	 viewBox="0 0 568 640" xml:space="preserve">
@@ -20,7 +8,7 @@
 	</foreignObject>
 	<g i:extraneous="self">
 		<g>
-			
+
 				<image width="450" height="524" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAIMCAYAAABmEqwcAAAACXBIWXMAAAsSAAALEgHS3X78AAAA
 GXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAC61JREFUeNrs3d1y01YARtGcjB+c
 B9cFJEMghCT+k20d7bWu2g44VOl49zuWYDwBnOHw9PRjjddZVnoduNZwCUDIZiWmCCGw28gJJUII
@@ -1217,4 +1205,3 @@ y/RyNnr7BAv6y3z0b9Pw6Pv7ZzFaTH/Bm/DLbDpf/Mym4fnrzz/gE/AT9XOgGnQbof8D63MUXA==
 	]]>
 </i:pgf>
 </svg>
-
