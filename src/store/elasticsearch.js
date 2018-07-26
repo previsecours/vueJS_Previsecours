@@ -1,6 +1,7 @@
+/*ignore jslint start*/
 import elasticsearch from 'elasticsearch'
 import configuration from '../assets/configuration.json'
-export default { search, searchSimpleFilter, function_createQuery, function_createQueryLoadCasernes }
+export default { search, searchSimpleFilter, function_createQuery, function_createQueryLoadCasernes, function_createQueryPreForExport, function_createQueryGeoForExport }
 
 let protocol = window.location.protocol  //previsecours.fr.local
 let host = window.location.host  // http:
@@ -188,3 +189,29 @@ function function_createQueryLoadCasernes(dpt){
             size: 1000
           }
 }
+
+//function we are using for the export data button
+function function_createQueryPreForExport(dpt){
+  return {
+            "query": {
+              "regexp":{
+                "prediction_type" : "sdis"+dpt+".*"
+              }
+            },
+            size: 10000
+          }
+}
+
+//function we are using for the export data button
+function function_createQueryGeoForExport(dpt){
+  return {
+            "query": {
+              "regexp":{
+                "properties.codeDepartement" : dpt
+              }
+            },
+            size: 10000
+          }
+}
+
+/*ignore jslint end*/
