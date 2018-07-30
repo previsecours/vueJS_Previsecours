@@ -59,6 +59,7 @@ export default {
       let labelsConf = this.labels || this.$_createCsvLabelsConf(labels)
       this.csvLabels = this.showLabels ? this.$_createCsvLabels(labelsConf) : ''
       this.csvData = this.$_createCsvContent(this.jsonData, labelsConf)
+      console.log('this.csvLabels:',this.csvLabels ,' -- this.csvData:',this.csvData);
       if (this.csvLabels === 'error' || this.csvData === 'error') {
         this.handleError(`Error: An error occured while parsing the data.`, hasErrorEvent)
         return
