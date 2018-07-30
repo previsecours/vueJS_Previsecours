@@ -59,7 +59,6 @@ export default {
       let labelsConf = this.labels || this.$_createCsvLabelsConf(labels)
       this.csvLabels = this.showLabels ? this.$_createCsvLabels(labelsConf) : ''
       this.csvData = this.$_createCsvContent(this.jsonData, labelsConf)
-      console.log('this.csvLabels:',this.csvLabels ,' -- this.csvData:',this.csvData);
       if (this.csvLabels === 'error' || this.csvData === 'error') {
         this.handleError(`Error: An error occured while parsing the data.`, hasErrorEvent)
         return
@@ -105,28 +104,32 @@ export default {
       let c = ''
       let type = ''
 
-      try {
+      console.log('arr:',arr);
+      console.log('labels:',labels);
+
+      // try {
         arr.map(function (m, i) {
           row = ''
-
+          console.log('m:',m,'i:',i);
           Object.keys(labels).map(function (k, s) {
             type = typeof m[k]
+            console.log('type:',type, 'm[k]:',m[k]);
             if (type === 'number' || type === 'float') {
               row += m[k] + ','
             } else {
               row += '"' + m[k] + '",'
             }
           })
-
+          console.log('row:',row);
           row = row.slice(0, -1)
 
           c += row + '\r\n'
         })
-      } catch (err) {
-        c = 'error'
-      } finally {
+      // } catch (err) {
+      //   c = 'error'
+      // } finally {
         return c
-      }
+      // }
     },
     $_downloadCsv (uid, csv, title) {
       try {
