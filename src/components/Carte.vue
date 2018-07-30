@@ -179,21 +179,25 @@ export default {
   methods: {
     onEachFeature(feature, layer) {
       if (feature.properties && feature.properties.nom) {
-        const threePoints = (feature.properties.nom.length > 12) ? "..." : "";
+        let widthPopup = screen.width || 500
+        let numOfChar = (widthPopup < 700) ? 15 : 50
+        const threePoints = (feature.properties.nom.length > numOfChar) ? "..." : "";
         let predictionInter = 'non disponible',
           classeInter = 'non disponible',
-          moy3ansInter = 'non disponible'
+          moy3ansInter = 'non disponible',
+          colorClasse = '#d6d6d6'
         try {
           let pre = feature.properties.prediction
           let pos = this.formatCurrentPosition(feature.properties.currentPosition)
           predictionInter = pre['pre_' + pos] || predictionInter
           classeInter = pre['cla_' + pos] || classeInter
           moy3ansInter = pre['po_' + pos] || moy3ansInter
+          colorClasse = this.green2red(classeInter)
+          console.log('classeInter,colorClasse',classeInter,colorClasse);
         } catch (e) {
           console.log(e.toString(), '\r\r    \r', feature.properties.nom);
         }
-        layer.bindPopup("<div>" + predictionInter + " interventions predites <p> <p>Reference pour cette periode: "+ moy3ansInter +" </p> classe: " + this.int2classe(classeInter) + " </p></div> <i class='leaflet-title'>" + feature.properties.nom.slice(0, 12) +
-          threePoints + "</i>");
+        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo' style='border-color:"+colorClasse+"'> <span class='number'>" + predictionInter + "</span> </span> <span class='smaller'>interventions predites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span class='smaller'>Reference pour cette periode: </span> <span>"+ moy3ansInter +"</span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> </div>");
       }
       // layer.on({
       //   click: this.testfct(layer)
@@ -281,7 +285,7 @@ export default {
           res = 'forte'
           break;
         case 5:
-          res = 'exceptionelle'
+          res = 'tres forte'
           break;
         default:
           res = 'moyenne'
@@ -498,5 +502,35 @@ li a:hover {
   background: transparent;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.firstDivRow{
+  flex-direction: row;
+}
+
+.flexCombo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.secondDivCol{
+  flex: 0.5;
+  flex-direction: column;
+}
+
+.smaller{
+  font-size: 0.8em
+}
+
+.predictions{
+  border-radius: 40px;
+  width: 40px;
+  height: 40px;
+  border: 3px solid;
+}
+.number{
+  align-self: center;
+  font-size: 25px;
 }
 </style>
