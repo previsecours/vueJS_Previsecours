@@ -197,7 +197,7 @@ export default {
         } catch (e) {
           console.log(e.toString(), '\r\r    \r', feature.properties.nom);
         }
-        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo' style='border-color:"+colorClasse+"'> <span class='number'>" + predictionInter + "</span> </span> <span class='smaller'>interventions predites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span class='smaller'>Reference pour cette periode: </span> <span>"+ moy3ansInter +"</span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> </div>");
+        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo' style='border-color:"+colorClasse+"'> <span class='number'>" + String(predictionInter).slice(0,3) + "</span> </span> <span class='smaller'>interventions predites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span class='smaller'>Reference pour cette periode: </span> <span>"+ moy3ansInter +"</span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> </div>");
       }
       // layer.on({
       //   click: this.testfct(layer)
