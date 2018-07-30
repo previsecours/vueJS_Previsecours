@@ -105,10 +105,17 @@ export default {
       let type = ''
 
       console.log('arr:',arr);
+
+      let arrCleaned = new Array();
+      arr.forEach(function(element) {
+        arrCleaned.push(element);
+      });
+      
       console.log('labels:',labels);
 
+
       // try {
-        arr.map(function (m, i) {
+        arrCleaned.map(function (m, i) {
           row = ''
           console.log('m:',m,'i:',i);
           Object.keys(labels).map(function (k, s) {
