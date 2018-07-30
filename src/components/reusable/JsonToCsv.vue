@@ -104,39 +104,30 @@ export default {
       let c = ''
       let type = ''
 
-      console.log('arr:',arr);
-
       let arrCleaned = new Array();
       arr.forEach(function(element) {
         if(element){arrCleaned.push(element);}
       });
 
-      console.log('labels:',labels);
-
-
-      // try {
+      try {
         arrCleaned.map(function (m, i) {
           row = ''
-          console.log('m:',m,'i:',i);
           Object.keys(labels).map(function (k, s) {
             type = typeof m[k]
-            console.log('type:',type, 'm[k]:',m[k]);
             if (type === 'number' || type === 'float') {
               row += m[k] + ','
             } else {
               row += '"' + m[k] + '",'
             }
           })
-          console.log('row:',row);
           row = row.slice(0, -1)
-
           c += row + '\r\n'
         })
-      // } catch (err) {
-      //   c = 'error'
-      // } finally {
+      } catch (err) {
+        c = 'error'
+      } finally {
         return c
-      // }
+      }
     },
     $_downloadCsv (uid, csv, title) {
       try {
