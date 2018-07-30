@@ -108,9 +108,9 @@ export default {
 
       let arrCleaned = new Array();
       arr.forEach(function(element) {
-        arrCleaned.push(element);
+        if(element){arrCleaned.push(element);}
       });
-      
+
       console.log('labels:',labels);
 
 
