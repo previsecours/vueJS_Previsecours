@@ -182,7 +182,7 @@ export default {
         let widthPopup = screen.width || 500
         let numOfChar = (widthPopup < 700) ? 15 : 50
         const threePoints = (feature.properties.nom.length > numOfChar) ? "..." : "";
-        let predictionInter = 'non disponible',
+        let predictionInter = '--',
           classeInter = 'non disponible',
           moy3ansInter = 'non disponible',
           colorClasse = '#d6d6d6'
@@ -197,7 +197,13 @@ export default {
         } catch (e) {
           console.log(e.toString(), '\r\r    \r', feature.properties.nom);
         }
-        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo' style='border-color:"+colorClasse+"'> <span class='number'>" + String(predictionInter).slice(0,3) + "</span> </span> <span class='smaller'>interventions predites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span class='smaller'>Reference pour cette periode: </span> <span>"+ moy3ansInter +"</span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> </div>");
+        let maxChar = 3
+        let predictionInterString = String(predictionInter)
+        let partieEntiere = (predictionInterString.split('.') && predictionInterString.split('.')[0]) ? predictionInterString.split('.')[0] : predictionInterString
+        let partieDecimale = (predictionInterString.split('.') && predictionInterString.split('.')[1]) ? predictionInterString.split('.')[1] : ''
+        partieDecimale = (3 - partieEntiere.length > 0) ? '.' + partieDecimale.slice(0,3 - partieEntiere.length) : ''
+
+        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo' style='border-color:"+colorClasse+"'> <span class='number'>" + partieEntiere + " <span class='smaller2'> "+ partieDecimale +"</span> </span> </span> <span class='smaller'>interventions predites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span class='smaller'>Reference pour cette periode: </span> <span>"+ moy3ansInter +"</span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> </div>");
       }
       // layer.on({
       //   click: this.testfct(layer)
@@ -523,6 +529,10 @@ li a:hover {
   font-size: 0.8em
 }
 
+.smaller2{
+  font-size: 0.5em
+}
+
 .predictions{
   border-radius: 40px;
   width: 40px;
@@ -531,6 +541,9 @@ li a:hover {
 }
 .number{
   align-self: center;
-  font-size: 25px;
+  font-size: 23px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
 }
 </style>
