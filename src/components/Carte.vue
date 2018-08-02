@@ -203,7 +203,12 @@ export default {
         let partieDecimale = (predictionInterString.split('.') && predictionInterString.split('.')[1]) ? predictionInterString.split('.')[1] : ''
         partieDecimale = (3 - partieEntiere.length > 0) ? '.' + partieDecimale.slice(0,3 - partieEntiere.length) : ''
 
-        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo' style='border-color:"+colorClasse+"'> <span class='number'>" + partieEntiere + " <span class='smaller2'> "+ partieDecimale +"</span> </span> </span> <span class='smaller'>interventions predites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span class='smaller'>Reference pour cette periode: </span> <span>"+ moy3ansInter +"</span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> </div>");
+        let currentCategorInterRenamed = this.$store.state.configuration.categorInters.find( categorInter => categorInter.nameCode ===  this.$store.state.filters.currentCategorInter).name
+        let currentTimeAggregationRenamed = this.$store.state.configuration.timeAggregations.find( timeAggregation => timeAggregation.nameCode ===  this.$store.state.filters.currentTimeAggregation).name
+        let currentGeoAggregationRenamed = this.$store.state.configuration.geoAggregations.find( geoAggregations => geoAggregations.nameCode ===  this.$store.state.filters.currentGeoAggregation).name
+
+
+        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo' style='border-color:"+colorClasse+"'> <span class='number'>" + partieEntiere + " <span class='smaller2'> "+ partieDecimale +"</span> </span> </span> <span class='smaller'>interventions predites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span> Reference </span> <span>"+ moy3ansInter +"</span> <span class='smaller'> (moyenne sur 3ans pour: "+currentCategorInterRenamed+",  "+currentTimeAggregationRenamed+",  "+currentGeoAggregationRenamed+") </span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> </div>");
       }
       // layer.on({
       //   click: this.testfct(layer)
