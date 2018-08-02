@@ -38,36 +38,35 @@ export default {
   },
   methods: {
     formatTooltip: function(val){
+      val = val - 1  //car val commence a 1 mais non on veut que ca commence a 0
       let options, tooltip
-//new version
       let timeStepBetweenRepetition = this.timeAggregationConfiguration.timeStepBetweenRepetitions
       let timeFromDateBegin = this.$moment( new Date(this.beginDate) ).add(val * timeStepBetweenRepetition.step,timeStepBetweenRepetition.type).valueOf()
-//end new version
       let nameCode = this.timeAggregationConfiguration.nameCode
       switch (nameCode) {
         case 'j':
             options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
+            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)  + " (nº" + val + ")"
           break;
         case 's':
             options = { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric'};
-            tooltip = 'semaine debutant le ' + new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
+            tooltip = 'semaine débutant le ' + new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)  + " (nº" + val + ")"
           break;
         case 'm':
             options = { year: 'numeric', month: 'long' };
-            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
+            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)  + " (nº" + val + ")"
           break;
         case 't':
             options = { month: 'long', year: 'numeric' };
-            tooltip = 'trimestre debutant en ' + new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
+            tooltip = 'trimestre débutant en ' + new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)  + " (nº" + val + ")"
           break;
         case 'a':
             options = { year: 'numeric'};
-            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
+            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)  + " (nº" + val + ")"
           break;
         default:
             options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)
+            tooltip = new Date(timeFromDateBegin).toLocaleDateString("fr-FR",options)  + " (nº" + val + ")"
       }
       return tooltip
     },
