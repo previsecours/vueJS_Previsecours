@@ -240,7 +240,7 @@ export default {
             }
             return {
               weight: 1,
-              color: '#FFFAFA',
+              color: '#505050',
               opacity: 0.9,
               dashArray: '2',
               fillColor: color,
