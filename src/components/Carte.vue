@@ -189,11 +189,11 @@ export default {
         try {
           let pre = feature.properties.prediction
           let pos = this.formatCurrentPosition(feature.properties.currentPosition)
-          predictionInter = pre['pre_' + pos] || predictionInter
-          classeInter = pre['cla_' + pos] || classeInter
-          moy3ansInter = pre['po_' + pos] || moy3ansInter
+          predictionInter = (pre['pre_' + pos] || pre['pre_' + pos] === 0) ? pre['pre_' + pos] : predictionInter
+          classeInter = (pre['cla_' + pos] || pre['cla_' + pos] === 0) ? pre['cla_' + pos] : classeInter
+          moy3ansInter = (pre['po_' + pos] || pre['po_' + pos] === 0) ? pre['po_' + pos] : moy3ansInter
           colorClasse = this.green2red(classeInter)
-          console.log('classeInter,colorClasse',classeInter,colorClasse);
+          if (process && process.env && process.env.DEBUG_MODE) { console.log('classeInter,colorClasse',classeInter,colorClasse)  }
         } catch (e) {
           console.log(e.toString(), '\r\r    \r', feature.properties.nom);
         }

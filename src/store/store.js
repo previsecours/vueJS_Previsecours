@@ -245,7 +245,7 @@ export const store = new VueX.Store({
       state.filters.currentTimeAggregation = newTimeAggregation;
     },
     reloadData: (state, newData) => {
-      console.log('result newData.elasticsearchResult', newData.elasticsearchResult);
+      if (process && process.env && process.env.DEBUG_MODE) { console.log('result newData.elasticsearchResult', newData.elasticsearchResult)  }
       state.data[newData.dataSubset] = newData.elasticsearchResult;
       state.dataHasBeenUpdated += 1
     },
@@ -290,7 +290,7 @@ export const store = new VueX.Store({
     */
     getNewData(context, dataSubset) {
       let query = es.function_createQuery(context.state, dataSubset)
-      console.log(query, dataSubset);
+      if (process && process.env && process.env.DEBUG_MODE) { console.log(query, dataSubset)  }
       return es.search(dataSubset, query)
     },
     /**
