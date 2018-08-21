@@ -99,7 +99,7 @@ export const store = new VueX.Store({
           description: 'Incendie (naturel et urbain) et accident',
           position: 5,
           show: true,
-          available:false
+          available:true
         }
       ],
       /**
