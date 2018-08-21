@@ -122,7 +122,7 @@ export const store = new VueX.Store({
           name: 'jour',
           nameCode: 'j',
           description: 'aggregation par jours',
-          timeRepetition: 5,
+          timeRepetition: 7,
           timeStepBetweenRepetitions: {
             type: 'days',
             step: 1
@@ -135,7 +135,7 @@ export const store = new VueX.Store({
           name: 'semaine',
           nameCode: 's',
           description: 'aggregation par semaines',
-          timeRepetition: 36,
+          timeRepetition: 52,
           timeStepBetweenRepetitions: {
             type: 'days',
             step: 7
