@@ -38,10 +38,11 @@ export default {
   },
   methods: {
     formatTooltip: function(val){
-      val = val - 1  //car val commence a 1 mais non on veut que ca commence a 0
+      val = Math.round(val) //pour ne pas avoir de bug d'affichage type 20.99999999999996 a la palce de 21 comme ca devrait l'etre
+      let val_for_timeFromDateBegin = val - 1  //car val commence a 1 mais non on veut que ca commence a 0 pour avoir le debut de la premiere semaine
       let options, tooltip
       let timeStepBetweenRepetition = this.timeAggregationConfiguration.timeStepBetweenRepetitions
-      let timeFromDateBegin = this.$moment( new Date(this.beginDate) ).add(val * timeStepBetweenRepetition.step,timeStepBetweenRepetition.type).valueOf()
+      let timeFromDateBegin = this.$moment( new Date(this.beginDate) ).add(val_for_timeFromDateBegin * timeStepBetweenRepetition.step,timeStepBetweenRepetition.type).valueOf()
       let nameCode = this.timeAggregationConfiguration.nameCode
       switch (nameCode) {
         case 'j':
