@@ -29,6 +29,9 @@ export default {
     sliderRangeEnd: function(){
       return this.timeAggregationConfiguration.timeRepetition
     },
+    sliderStartPosition: function(){
+      return this.getTodayCorrespondingValue()
+    },
     beginDate: function(){
       return this.$store.state.slider.begin
     },
@@ -71,6 +74,50 @@ export default {
       }
       return tooltip
     },
+    getTodayCorrespondingValue: function(){
+      try {
+        let timeStepBetweenRepetition = this.timeAggregationConfiguration.timeStepBetweenRepetitions
+        let timeFromDateBegin = this.$moment( new Date(this.beginDate) )
+        let timeFromDateEnd = this.$moment( new Date(this.beginDate) ).add(this.sliderRangeEnd * timeStepBetweenRepetition.step,timeStepBetweenRepetition.type)
+        let nameCode = this.timeAggregationConfiguration.nameCode
+        let timeNow = this.$moment()
+        let todayCorrespondingValue
+        if (process && process.env && process.env.DEBUG_MODE) {
+          console.log('this.beginDate: ', this.$store.state.slider.begin);
+          console.log('timeFromDateBegin: ', timeFromDateBegin.format('Do MMM YYYY') );
+          console.log('timeFromDateEnd:   ', timeFromDateEnd.format('Do MMM YYYY') );
+          console.log('timeNow:           ', timeNow.format('Do MMM YYYY'));
+        }
+        if(!this.$moment(timeNow).isBetween(timeFromDateBegin,timeFromDateEnd) ) {
+          if (process && process.env && process.env.DEBUG_MODE) { console.log('not in between');  } return 1
+        }
+        switch (nameCode) {
+          case 'j':
+              todayCorrespondingValue = timeNow.diff(timeFromDateBegin,'days');
+            break;
+          case 's':
+              todayCorrespondingValue = timeNow.diff(timeFromDateBegin,'weeks');
+            break;
+          case 'm':
+              todayCorrespondingValue = timeNow.diff(timeFromDateBegin,'months');
+            break;
+          case 't':
+              todayCorrespondingValue = timeNow.diff(timeFromDateBegin,'months') / 3;
+            break;
+          case 'a':
+              todayCorrespondingValue = timeNow.diff(timeFromDateBegin,'years');
+            break;
+          default:
+              todayCorrespondingValue = timeNow.diff(timeFromDateBegin,'weeks');
+        }
+        todayCorrespondingValue = Math.round(todayCorrespondingValue) + 1 //parceque le compte est a 0 par defaut sur moment, or nous commencons a 1
+        if (process && process.env && process.env.DEBUG_MODE) { console.log('todayCorrespondingValue',todayCorrespondingValue, 'for nameCode type: ',nameCode); }
+        return todayCorrespondingValue
+      } catch (e) {
+          console.log(e);
+          return 1
+      }
+    },
     updateSlider: function(){
       let vueCompo = this;
       this.$refs.slider.noUiSlider.updateOptions({
@@ -92,7 +139,7 @@ export default {
     let vueCompo = this;
     this.$store.dispatch('filters_updateTimeAggregation',this.$store.state.filters.currentTimeAggregation).then(() => {
         slider.create(this.$refs.slider, {
-          start: this.sliderRangeBegin,//new Date(new Date().setDate(new Date().getDate()+3)).getTime(),
+          start: this.sliderStartPosition,
           behaviour: 'tap-drag',
           connect: true,
           range: {
