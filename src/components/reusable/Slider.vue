@@ -1,7 +1,9 @@
 <template>
   <div class='sliders'>
-    <span>
+    <span class='aroundSlider'>
+      <span class='btnSliderSpan btnSliderSpanMinus'><button ref='minus'>-</button></span>
       <div ref='slider' class='slider'></div>
+      <span class='btnSliderSpan btnSliderSpanPlus'><button ref='plus'>+</button></span>
     </span>
   </div>
 </template>
@@ -129,6 +131,18 @@ export default {
         start:1
       })
     },
+    setSliderMinusOne: function(){
+      let val = parseInt(this.$refs.slider.noUiSlider.get())
+      if (val > 0) { val-- }
+      this.$store.commit('slider_updateCurrentPosition',val)
+      this.$refs.slider.noUiSlider.set(val)
+    },
+    setSliderPlusOne: function(){
+      let val = parseInt(this.$refs.slider.noUiSlider.get())
+      if (val < this.sliderRangeEnd) { val++ }
+      this.$store.commit('slider_updateCurrentPosition',val)
+      this.$refs.slider.noUiSlider.set(val)
+    },
   },
   watch: {
     currentTimeAggregation() {
@@ -154,6 +168,12 @@ export default {
           vueCompo.$store.commit('slider_updateCurrentPosition',parseInt(values[0]))
           // console.log('values on update', values);
         })
+        this.$refs.minus.addEventListener('click', function(){
+          vueCompo.setSliderMinusOne();
+        });
+        this.$refs.plus.addEventListener('click', function(){
+          vueCompo.setSliderPlusOne();
+        });
     })
   }
 }
@@ -163,11 +183,28 @@ export default {
 .sliders {
   position: fixed;
   bottom: 10px;
-  left: 40%;
   margin-bottom: 4em;
   z-index: 2000;
-  width: 300px;
   height: 40px;
+}
+
+@media screen and (max-width: 399px){
+  .sliders{
+    left: 50%;
+    width: 260px;
+    margin-left: -130px;
+  }
+  .noUi-tooltip{
+    white-space: pre-wrap !important;
+    width: 90px;
+  }
+}
+@media screen and (min-width: 400px){
+  .sliders{
+    left: 50%;
+    width: 50%;
+    margin-left: -25%;
+  }
 }
 
 .slider {
@@ -177,7 +214,6 @@ export default {
 
 .noUi-tooltip {
   padding: 2px !important;
-  font-size: 12px;
 }
 .slider .noUi-connect {
   background: rgb(253, 32, 32);
@@ -224,4 +260,29 @@ export default {
 .noUi-origin{
   left:100% !important;
 }
+
+.aroundSlider{
+  display: flex;
+  flex-direction:
+}
+
+.slider{
+  flex: 0.8;
+}
+.btnSliderSpan{
+  flex: 0.1;
+  margin-top: 3.5em;
+  margin-bottom: 5em;
+}
+.btnSliderSpanMinus{
+  padding-right: 18px;
+  text-align: right;
+
+}
+.btnSliderSpanPlus{
+  padding-left: 18px;
+  text-align: left;
+}
+
+
 </style>

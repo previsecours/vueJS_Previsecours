@@ -35,9 +35,20 @@ export default {
 <style scoped>
   #FilterGeoAggregation{
     position: fixed;
-    bottom: 130px;
     left: 1%;
     background-color: white;
     z-index:1;
   }
+
+  /* pour gerer les cas d'un petit ecran: on fait remonter les filters pour que le slider ait de la place */
+   @media screen and (min-width: 1030px){
+     #FilterGeoAggregation{
+       bottom: 130px;
+     }
+   }
+   @media screen and (max-width: 1030px){
+     #FilterGeoAggregation{
+       bottom: 330px;
+     }
+   }
 </style>
