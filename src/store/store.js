@@ -267,6 +267,7 @@ export const store = new VueX.Store({
     filters_updateGeoAggregation: (context, newGeoAggregation) => {
       context.commit('filters_updateGeoAggregation', newGeoAggregation)
       context.dispatch('reloadData', ['geo'])
+      context.dispatch('reloadData', ['pre'])
     },
     filters_updateTimeAggregation: (context, newTimeAggregation) => {
       return new Promise((resolve, reject) => {
