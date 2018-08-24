@@ -13,7 +13,7 @@ export default {
   },
   data () {
     return {
-      appear: true
+      appear: false
     }
   },
 }
