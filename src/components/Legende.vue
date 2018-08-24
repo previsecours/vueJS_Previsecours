@@ -51,7 +51,8 @@ export default {
   #legende li {
     list-style: none;
     padding: 5px 0px 5px 0px;
-    width: 90px;
+    min-width: 90px;
+    width: 100%;
     height: 30px;
     display: flex;
     justify-content: center;
