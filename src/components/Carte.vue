@@ -198,7 +198,7 @@ export default {
           console.log(e.toString(), '\r\r    \r', feature.properties.nom);
         }
         let maxChar = 3
-        let predictionInterString = '34.45'//String(predictionInter)
+        let predictionInterString = String(predictionInter)
         let partieEntiere = (predictionInterString.split('.') && predictionInterString.split('.')[0]) ? predictionInterString.split('.')[0] : predictionInterString
         partieEntiere = parseInt(partieEntiere).toString() //pour retirer les 0 devant une partieentier comme 0008 doit etre 8
         let isAbove1000CssClass = (partieEntiere && partieEntiere >= 1000) ? 'isAbove1000' : ''
