@@ -198,9 +198,12 @@ export default {
           console.log(e.toString(), '\r\r    \r', feature.properties.nom);
         }
         let maxChar = 3
-        let predictionInterString = String(predictionInter)
+        let predictionInterString = '34.45'//String(predictionInter)
         let partieEntiere = (predictionInterString.split('.') && predictionInterString.split('.')[0]) ? predictionInterString.split('.')[0] : predictionInterString
-        let partieDecimale = (predictionInterString.split('.') && predictionInterString.split('.')[1]) ? predictionInterString.split('.')[1] : ''
+        partieEntiere = parseInt(partieEntiere).toString() //pour retirer les 0 devant une partieentier comme 0008 doit etre 8
+        let isAbove1000CssClass = (partieEntiere && partieEntiere >= 1000) ? 'isAbove1000' : ''
+
+        let partieDecimale = (predictionInterString.split('.') && predictionInterString.split('.')[1]) ? predictionInterString.split('.')[1] : '0'
         partieDecimale = (3 - partieEntiere.length > 0) ? '.' + partieDecimale.slice(0,3 - partieEntiere.length) : ''
 
         let currentCategorInterRenamed = this.$store.state.configuration.categorInters.find( categorInter => categorInter.nameCode ===  this.$store.state.filters.currentCategorInter).name
@@ -208,7 +211,7 @@ export default {
         let currentGeoAggregationRenamed = this.$store.state.configuration.geoAggregations.find( geoAggregations => geoAggregations.nameCode ===  this.$store.state.filters.currentGeoAggregation).name
 
 
-        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo' style='border-color:"+colorClasse+"'> <span class='number'>" + partieEntiere + " <span class='smaller2'> "+ partieDecimale +"</span> </span> </span> <span class='smaller'>interventions predites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span> Reference </span> <span>"+ moy3ansInter +"</span> <span class='smaller'> (moyenne sur 3ans pour: "+currentCategorInterRenamed+",  "+currentTimeAggregationRenamed+",  "+currentGeoAggregationRenamed+") </span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> </div>");
+        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo "+isAbove1000CssClass+"' style='border-color:"+colorClasse+"'> <span class='number'>" + partieEntiere + " <span class='smaller2'> "+ partieDecimale +"</span> </span> </span> <span class='smaller'>interventions predites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span> Reference </span> <span>"+ moy3ansInter +"</span> <span class='smaller'> (moyenne sur 3ans pour: "+currentCategorInterRenamed+",  "+currentTimeAggregationRenamed+",  "+currentGeoAggregationRenamed+") </span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> </div>");
       }
       // layer.on({
       //   click: this.testfct(layer)
@@ -550,5 +553,9 @@ li a:hover {
   display: flex;
   flex-direction: row;
   align-items: baseline;
+}
+
+.isAbove1000{
+  width: 100px !important;
 }
 </style>
