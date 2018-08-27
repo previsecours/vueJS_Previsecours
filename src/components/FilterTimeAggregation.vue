@@ -26,7 +26,7 @@ export default {
   methods:{
     filters_updateTimeAggregation(e){
       this.$store.dispatch('filters_updateTimeAggregation',e.nameCode);
-      console.log( 'action a produire si selection de ', e);
+      this.mixpanel('Click - Button Filtre temporel')
     }
   }
 }

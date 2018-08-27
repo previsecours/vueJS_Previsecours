@@ -6,7 +6,7 @@
     <ButtonPrint @click.native="mixpanel('Click - Button Print Screenshot')"></ButtonPrint>
     <ButtonExport @click.native="mixpanel('Click - Button Export CSV')"></ButtonExport>
     <ButtonCasernes @click.native="mixpanel('Click - Button Casernes on/off')"></ButtonCasernes>
-    <Information></Information>
+    <Information @click.native="mixpanel('Click - Button Information')"></Information>
   </div>
 </template>
 

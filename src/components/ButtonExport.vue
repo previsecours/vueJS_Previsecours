@@ -21,7 +21,7 @@ export default {
   },
   methods:{
     getData: function(){
-      console.log('vue component trigggering loadDataForExport');
+      // console.log('vue component trigggering loadDataForExport');
       let queryPre = es.function_createQueryPreForExport(this.$store.state.filters.currentDepartment)
       let queryGeo = es.function_createQueryGeoForExport(this.$store.state.filters.currentDepartment)
       let searchPre = es.search('pre', queryPre)

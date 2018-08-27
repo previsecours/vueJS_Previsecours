@@ -26,7 +26,7 @@ export default {
   methods:{
     filters_updateCategory(e){
       this.$store.dispatch('filters_updateCategory',e.nameCode);
-      console.log( 'action a produire lorsque on selectionne une categorie d intervention de dropdown', e);
+      this.mixpanel('Click - Button Filtre categorie intervention')
     }
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <div class='sliders'>
     <span class='aroundSlider'>
-      <span class='btnSliderSpan btnSliderSpanMinus'><button ref='minus'>-</button></span>
-      <div ref='slider' class='slider'></div>
-      <span class='btnSliderSpan btnSliderSpanPlus'><button ref='plus'>+</button></span>
+      <span class='btnSliderSpan btnSliderSpanMinus' @click="mixpanel('Click - Slider minus -')"><button ref='minus'>-</button></span>
+      <div ref='slider' class='slider' @click="mixpanel('Click - Slider Srolling')"></div>
+      <span class='btnSliderSpan btnSliderSpanPlus' @click="mixpanel('Click - Slider plus +')"><button ref='plus'>+</button></span>
     </span>
   </div>
 </template>

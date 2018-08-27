@@ -26,7 +26,7 @@ export default {
   methods:{
     filters_updateGeoAggregation(e){
       this.$store.dispatch('filters_updateGeoAggregation',e.nameCode);
-      console.log( 'action a produire lorsque on selectionne une geo aggregation de dropdown', e);
+      this.mixpanel('Click - Button Filtre geographique')
     }
   }
 }
