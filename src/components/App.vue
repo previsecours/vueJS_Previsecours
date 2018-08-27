@@ -3,9 +3,9 @@
     <Carte></Carte>
     <Filters></Filters>
     <Slider></Slider>
-    <ButtonPrint></ButtonPrint>
-    <ButtonExport></ButtonExport>
-    <ButtonCasernes></ButtonCasernes>
+    <ButtonPrint @click.native="mixpanel('Click - Button Print Screenshot')"></ButtonPrint>
+    <ButtonExport @click.native="mixpanel('Click - Button Export CSV')"></ButtonExport>
+    <ButtonCasernes @click.native="mixpanel('Click - Button Casernes on/off')"></ButtonCasernes>
     <Information></Information>
   </div>
 </template>
