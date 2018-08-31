@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       //map
-      center: L.latLng(48.2603, 2.0941),
+      center: L.latLng(48.5472, 2.2760),
       //tile layer
       url: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
       attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',

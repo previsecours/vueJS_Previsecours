@@ -4,10 +4,10 @@ module.exports = {
       let res
       switch (i) {
         case 1:
-          res = '#7fe4a1'
+          res = '#02b93f'
           break;
         case 2:
-          res = '#02b93f'
+          res = '#7fe4a1'
           break;
         case 3:
           res = '#ffffff'
