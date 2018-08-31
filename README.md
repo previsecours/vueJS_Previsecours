@@ -1,6 +1,16 @@
 # vuejs_previsecours
 
-> Front app for previsecours project
+Ce projet permet d’explorer sur une carte les interventions SDIS passées, et les predictions d'interventions générées par la team Prévisecours.
+
+De nombreux filtres et représentations permettent d’explorer plusieurs situations.
+
+Il a pour vocation à être un outil opérationnel pour les pompiers du SDIS 91 afin de les aider à mieux comprendre et anticiper les interventions.
+
+# Contexte de développement
+
+Ce projet a initialement été développé par Tiphaine Phe-Neau et Guillaume Lancrenon dans le cadre du programme Entrepreneurs d’Intérêt Général 2018.
+
+Il est porté par le datalab du ministère de l’Intérieur Francais.
 
 ## Build Setup
 
