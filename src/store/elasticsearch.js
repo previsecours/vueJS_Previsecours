@@ -222,7 +222,7 @@ function function_createQueryPreForExportLastUpdate(name) {
         "documentName": name
       }
     },
-    size: 1
+    size: 10000
   }
 }
 
