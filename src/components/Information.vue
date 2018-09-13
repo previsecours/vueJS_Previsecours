@@ -2,14 +2,17 @@
   <div id="information" v-on:click="appear = !appear">
     <i class="fa fa-info"></i>
     <legende v-if="appear"></legende>
+    <buttonGetLastUpdate v-if="appear"></buttonGetLastUpdate>
   </div>
 </template>
 
 <script>
 import legende from './Legende.vue'
+import buttonGetLastUpdate from './ButtonGetLastUpdate.vue'
 export default {
   components:{
-    legende
+    legende,
+    buttonGetLastUpdate
   },
   data () {
     return {

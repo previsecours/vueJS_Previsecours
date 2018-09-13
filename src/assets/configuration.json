@@ -2,6 +2,7 @@
 	"indexes": {
 		"int": "interventions",
 		"pre": "predictions",
-		"geo": "geographies"
+		"geo": "geographies",
+		"doc": "documents"
 	}
 }

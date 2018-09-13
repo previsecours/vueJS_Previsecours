@@ -1,7 +1,7 @@
 /*ignore jslint start*/
 import elasticsearch from 'elasticsearch'
 import configuration from '../assets/configuration.json'
-export default { search, searchSimpleFilter, function_createQuery, function_createQueryLoadCasernes, function_createQueryPreForExport, function_createQueryGeoForExport }
+export default { search, searchSimpleFilter, function_createQuery, function_createQueryLoadCasernes, function_createQueryPreForExport, function_createQueryGeoForExport, function_createQueryPreForExportLastUpdate }
 
 let protocol = window.location.protocol  //previsecours.fr.local
 let host = window.location.host  // http:
@@ -212,6 +212,18 @@ function function_createQueryGeoForExport(dpt){
             },
             size: 10000
           }
+}
+
+//function we are using for the export data button to get the Last Update Date of data features
+function function_createQueryPreForExportLastUpdate(name) {
+  return {
+    "query": {
+      "regexp": {
+        "documentName": name
+      }
+    },
+    size: 1
+  }
 }
 
 /*ignore jslint end*/
