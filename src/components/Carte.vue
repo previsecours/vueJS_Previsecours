@@ -188,6 +188,7 @@ export default {
         let predictionInter = '--',
           classeInter = 'non disponible',
           moy3ansInter = 'non disponible',
+          ref3ansGlissante = '',
           colorClasse = '#d6d6d6'
         try {
           let pre = feature.properties.prediction
@@ -195,6 +196,7 @@ export default {
           predictionInter = (pre['pre_' + pos] || pre['pre_' + pos] === 0) ? pre['pre_' + pos] : predictionInter
           classeInter = (pre['cla_' + pos] || pre['cla_' + pos] === 0) ? pre['cla_' + pos] : classeInter
           moy3ansInter = (pre['po_' + pos] || pre['po_' + pos] === 0) ? pre['po_' + pos] : moy3ansInter
+          ref3ansGlissante = (pre['po2_' + pos] || pre['po2_' + pos] === 0) ? pre['po2_' + pos] : ref3ansGlissante
           colorClasse = this.green2red(classeInter)
           if (process && process.env && process.env.DEBUG_MODE) { console.log('classeInter,colorClasse',classeInter,colorClasse)  }
         } catch (e) {
@@ -213,8 +215,10 @@ export default {
         let currentTimeAggregationRenamed = this.$store.state.configuration.timeAggregations.find( timeAggregation => timeAggregation.nameCode ===  this.$store.state.filters.currentTimeAggregation).name
         let currentGeoAggregationRenamed = this.$store.state.configuration.geoAggregations.find( geoAggregations => geoAggregations.nameCode ===  this.$store.state.filters.currentGeoAggregation).name
 
+        let ref3ansGlissanteHTML = (ref3ansGlissante === '') ? '' : "<span> <span class='smaller'> moyenne glissante</span>: <span class='white'> "+ref3ansGlissante+"</span> </span>";
+        let moy3ansInterHTML = "<span><span class='smaller'> moyenne totale: </span> <span class='white'>" + moy3ansInter + " </span></span>";
 
-        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo "+isAbove1000CssClass+"' style='border-color:"+colorClasse+"'> <span class='number'>" + partieEntiere + " <span class='smaller2'> "+ partieDecimale +"</span> </span> </span> <span class='smaller'>interventions predites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span> Reference </span> <span>"+ moy3ansInter +"</span> <span class='smaller'> (moyenne sur 3ans pour: "+currentCategorInterRenamed+",  "+currentTimeAggregationRenamed+",  "+currentGeoAggregationRenamed+") </span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> </div>");
+        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo "+isAbove1000CssClass+"' style='border-color:"+colorClasse+"'> <span class='number'>" + partieEntiere + " <span class='smaller2'> "+ partieDecimale +"</span> </span> </span> <span class='smaller'>interventions predites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span> Références sur les 3 années passées:</span> "+ moy3ansInterHTML + ref3ansGlissanteHTML + "</span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> <i class='leaflet-subtitle'> "+currentCategorInterRenamed+",  "+currentTimeAggregationRenamed+",  "+currentGeoAggregationRenamed+" </i> </div>");
       }
       // layer.on({
       //   click: this.testfct(layer)
@@ -482,7 +486,7 @@ li a:hover {
 
 .custom-popup .leaflet-popup-content {
   margin: 15px 25px;
-  padding-top: 10px;
+  padding-top: 15px;
   text-align: center;
 }
 
@@ -513,7 +517,25 @@ li a:hover {
   height: 20px;
   line-height: 13px;
   font: 10px/8px Tahoma, Verdana, sans-serif;
-  color: #c3c3c3;
+  color: #dbdbdb;
+  text-decoration: none;
+  font-style: italic;
+  background: transparent;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-popup .leaflet-subtitle {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  padding: 8px 0px 0 4px;
+  border: none;
+  text-align: left;
+  width: 85%;
+  height: 20px;
+  line-height: 13px;
+  font: 10px/8px Tahoma, Verdana, sans-serif;
   text-decoration: none;
   font-style: italic;
   background: transparent;
@@ -560,5 +582,9 @@ li a:hover {
 
 .isAbove1000{
   width: 100px !important;
+}
+
+.white{
+  color: white
 }
 </style>
