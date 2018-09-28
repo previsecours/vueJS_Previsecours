@@ -93,6 +93,7 @@ export default {
         display: inline-block;
         vertical-align: middle;
         background-color: #f6f6f6;
+        border: 1px solid lightgray;
         a {
             &:hover {
                 text-decoration: none;
@@ -103,6 +104,7 @@ export default {
 .dropdown-toggle {
   color: #636b6f;
   min-width: 160px;
+  height: 20px;
   padding: 10px;
   text-transform: none;
   font-weight: 300;
@@ -127,7 +129,7 @@ export default {
 
 .dropdown-menu {
   position: absolute;
-  bottom: 100%;
+  top: 100%;
   right: 0;
   z-index: 1000;
   float: left;
@@ -177,7 +179,7 @@ export default {
   vertical-align: middle;
   /* border-top: 4px dashed;
       border-top: 4px solid \9; */
-  border-bottom: 4px solid #636b6f;
+  border-top: 4px solid #636b6f;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
   float: right;

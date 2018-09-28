@@ -3,7 +3,7 @@
       <h3>Echelle de couleur</h3>
       <h5>relatif aux nombres d'interventions predites</h5>
       <ul>
-        <li v-for="obj in arrayLegende" v-bind:style="{'backgroundColor':obj.color}">
+        <li v-for="obj in arrayLegende" v-bind:style="{'backgroundColor':obj.color,'color':obj.fontColor}">
             {{ obj.classe }}
         </li>
       </ul>
@@ -24,7 +24,9 @@ export default {
     arrayLegende() {
       let arr = []
       for (var i = 1; i <= 5; i++) {
-        arr.push( {color: this.green2red(i), classe: this.int2classe(i) } )
+        let fontColor = 'inherit'
+        if (i === 1 || i === 5 || i === 2) { fontColor = 'white'  }
+        arr.push( {color: this.green2red(i), classe: this.int2classe(i), fontColor: fontColor} )
       }
       console.log(arr);
       return arr
@@ -42,6 +44,7 @@ export default {
     background-color: #f6f6f6;
     color: #636b6f;
     text-align: center;
+    border: 1px solid lightgray;
   }
   #legende ul {
     list-style: none;

@@ -44,12 +44,12 @@ export default {
   /* pour gerer les cas d'un petit ecran: on fait remonter les filters pour que le slider ait de la place */
    @media screen and (min-width: 1030px){
      #filterCategorInter{
-       bottom: 70px;
+       top: 130px;
      }
    }
    @media screen and (max-width: 1030px){
      #filterCategorInter{
-       bottom: 270px;
+       top: 330px;
      }
    }
 

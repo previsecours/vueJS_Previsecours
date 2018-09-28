@@ -43,12 +43,12 @@ export default {
   /* pour gerer les cas d'un petit ecran: on fait remonter les filters pour que le slider ait de la place */
    @media screen and (min-width: 1030px){
      #FilterGeoAggregation{
-       bottom: 130px;
+       top: 190px;
      }
    }
    @media screen and (max-width: 1030px){
      #FilterGeoAggregation{
-       bottom: 330px;
+       top: 390px;
      }
    }
 </style>

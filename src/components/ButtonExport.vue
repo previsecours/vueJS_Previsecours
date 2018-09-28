@@ -160,8 +160,8 @@ export default {
 /* we cannot "scoped" this style because we want to overwrite the default style of the vue componenet VueJsonToCsv */
   #ButtonExport{
     position: fixed;
-    top: 60px;
-    right: 1%;
+    top: 10px;
+    left: 82px;
     background-color: white;
     z-index:1000;
   }

@@ -25,7 +25,7 @@ export default {
 <style scoped>
   #information{
     position: fixed;
-    bottom: 50px;
+    bottom: 100px;
     right: 1%;
     width: 30px;
     height: 30px;

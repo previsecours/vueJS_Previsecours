@@ -40,7 +40,7 @@ export default {
   #ButtonPrint{
     position: fixed;
     top: 10px;
-    right: 1%;
+    left: 152px;
     background-color: white;
     z-index:1000;
   }

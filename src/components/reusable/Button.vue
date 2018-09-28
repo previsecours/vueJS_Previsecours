@@ -24,6 +24,7 @@ export default {
         display: inline-block;
         vertical-align: middle;
         background-color: #f6f6f6;
+        border: 1px solid lightgray;
         a {
             &:hover {
                 text-decoration: none;

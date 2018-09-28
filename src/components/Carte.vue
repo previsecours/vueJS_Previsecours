@@ -324,6 +324,14 @@ export default {
   },
   mounted() {
     this.$store.dispatch('filters_updateGeoAggregation', this.$store.state.filters.currentGeoAggregation);
+
+    // on repositionne le zoom en bas a droite
+    let map = this.$refs.map.mapObject;
+    if (map.zoomControl) {
+        map.zoomControl.remove()
+      }
+      this.zoomControl = L.control.zoom({'position': 'bottomright'})
+      map.addControl(this.zoomControl)
   }
 }
 </script>

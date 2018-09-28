@@ -34,8 +34,8 @@ export default {
 <style scoped>
   #ButtonCasernes{
     position: fixed;
-    top: 110px;
-    right: 1%;
+    top: 10px;
+    left: 10px;
     background-color: white;
     z-index:1000;
   }

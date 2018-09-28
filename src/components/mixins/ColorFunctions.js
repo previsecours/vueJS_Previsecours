@@ -4,10 +4,10 @@ module.exports = {
       let res
       switch (i) {
         case 1:
-          res = '#02b93f'
+          res = '#316f6b'
           break;
         case 2:
-          res = '#7fe4a1'
+          res = '#4ba29b'
           break;
         case 3:
           res = '#ffffff'
@@ -19,7 +19,7 @@ module.exports = {
           res = '#ff1818'
           break;
         default:
-          res = '#7fe4a1'
+          res = '#316f6b'
       }
       return res
     },
