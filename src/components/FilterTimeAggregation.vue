@@ -36,20 +36,8 @@ export default {
   #FilterTimeAggregation{
     position: fixed;
     left: 1%;
+    top: 70px;
     background-color: white;
     z-index:3;
   }
-
- /* pour gerer les cas d'un petit ecran: on fait remonter les filters pour que le slider ait de la place */
-  @media screen and (min-width: 1030px){
-    #FilterTimeAggregation{
-      top: 70px;
-    }
-  }
-  @media screen and (max-width: 1030px){
-    #FilterTimeAggregation{
-      top: 270px;
-    }
-  }
-
 </style>

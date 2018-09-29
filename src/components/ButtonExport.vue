@@ -161,7 +161,7 @@ export default {
   #ButtonExport{
     position: fixed;
     top: 10px;
-    left: 82px;
+    left: 84px;
     background-color: white;
     z-index:1000;
   }

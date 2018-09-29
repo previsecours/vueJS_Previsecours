@@ -36,21 +36,9 @@ export default {
   #filterCategorInter{
     position: fixed;
     left: 1%;
+    top: 130px;
     background-color: white;
     z-index:2;
     /* pour que les menus ne se montent pas les uns sur les autres il faut faire en sorte que en bas le z-index soit superieur */
   }
-
-  /* pour gerer les cas d'un petit ecran: on fait remonter les filters pour que le slider ait de la place */
-   @media screen and (min-width: 1030px){
-     #filterCategorInter{
-       top: 130px;
-     }
-   }
-   @media screen and (max-width: 1030px){
-     #filterCategorInter{
-       top: 330px;
-     }
-   }
-
 </style>

@@ -35,7 +35,7 @@ export default {
   #ButtonCasernes{
     position: fixed;
     top: 10px;
-    left: 10px;
+    left: 15px;
     background-color: white;
     z-index:1000;
   }

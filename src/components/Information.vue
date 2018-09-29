@@ -26,7 +26,7 @@ export default {
   #information{
     position: fixed;
     bottom: 100px;
-    right: 1%;
+    right: 12px;
     width: 30px;
     height: 30px;
     display: flex;
