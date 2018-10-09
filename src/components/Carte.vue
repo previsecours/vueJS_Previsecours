@@ -44,7 +44,7 @@ export default {
             opacity: 0.9,
             dashArray: '2',
             fillColor: '#e4ce7f',
-            fillOpacity: 0.5
+            fillOpacity: 0.8
           }
         }
       },

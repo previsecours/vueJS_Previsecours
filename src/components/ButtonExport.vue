@@ -98,6 +98,9 @@ export default {
           case 'po':
             return 'Reference ' + textSubstrNum
             break;
+          case 'po2':
+            return 'Reference glissante ' + textSubstrNum
+            break;
           default:
             return text
         }
