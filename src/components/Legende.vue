@@ -25,7 +25,7 @@ export default {
       let arr = []
       for (var i = 1; i <= 5; i++) {
         let fontColor = 'inherit'
-        if (i === 1 || i === 5 || i === 2) { fontColor = 'white'  }
+        if (i === 1 || i === 5) { fontColor = 'white'  }
         arr.push( {color: this.green2red(i), classe: this.int2classe(i), fontColor: fontColor} )
       }
       console.log(arr);

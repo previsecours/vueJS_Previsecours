@@ -7,7 +7,7 @@ module.exports = {
           res = '#316f6b'
           break;
         case 2:
-          res = '#4ba29b'
+          res = '#93dbd5'
           break;
         case 3:
           res = '#ffffff'
