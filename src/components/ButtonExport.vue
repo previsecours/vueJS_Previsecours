@@ -96,10 +96,10 @@ export default {
             return 'Classe ' + textSubstrNum
             break;
           case 'po':
-            return 'Reference ' + textSubstrNum
+            return 'Moyenne totale ' + textSubstrNum
             break;
           case 'po2':
-            return 'Reference glissante ' + textSubstrNum
+            return 'Moyenne glissante ' + textSubstrNum
             break;
           default:
             return text
