@@ -27,7 +27,7 @@ module.exports = {
       let res
       switch (i) {
         case 1:
-          res = 'tres faible'
+          res = 'très faible'
           break;
         case 2:
           res = 'faible'
@@ -39,7 +39,7 @@ module.exports = {
           res = 'forte'
           break;
         case 5:
-          res = 'tres forte'
+          res = 'très forte'
           break;
         default:
           res = 'moyenne'

@@ -1,7 +1,7 @@
 <template>
     <div id="legende">
       <h3>Echelle de couleur</h3>
-      <h5>relatif aux nombres d'interventions predites</h5>
+      <h5>relatif aux nombres d'interventions prédites</h5>
       <ul>
         <li v-for="obj in arrayLegende" v-bind:style="{'backgroundColor':obj.color,'color':obj.fontColor}">
             {{ obj.classe }}
@@ -41,6 +41,7 @@ export default {
     position: absolute;
     bottom: 40px;
     right: 0px;
+    width: 100px;
     background-color: #f6f6f6;
     color: #636b6f;
     text-align: center;

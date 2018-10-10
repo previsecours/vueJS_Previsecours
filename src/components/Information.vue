@@ -3,16 +3,19 @@
     <i class="fa fa-info"></i>
     <legende v-if="appear"></legende>
     <buttonGetLastUpdate v-if="appear"></buttonGetLastUpdate>
+    <linkDocumentation v-if="appear"></linkDocumentation>
   </div>
 </template>
 
 <script>
 import legende from './Legende.vue'
 import buttonGetLastUpdate from './ButtonGetLastUpdate.vue'
+import linkDocumentation from './LinkDocumentation.vue'
 export default {
   components:{
     legende,
-    buttonGetLastUpdate
+    buttonGetLastUpdate,
+    linkDocumentation
   },
   data () {
     return {

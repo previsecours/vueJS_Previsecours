@@ -1,6 +1,6 @@
 <template>
   <div id="buttonGetLastUpdate">
-    <h5>Indicateurs de mise a jour des facteurs</h5>
+    <h5>Indicateurs de mise à jour des facteurs</h5>
     <JsonToCsv id="ButtonExport2" :json-data=data csv-title="previsecours_last_update" :icon="iconName"></JsonToCsv>
   </div>
 </template>
@@ -58,10 +58,12 @@ export default {
   #buttonGetLastUpdate{
     position: absolute;
     bottom: 40px;
-    right: 100px;
+    right: 105px;
+    width: 100px;
     background-color: #f6f6f6;
     color: #636b6f;
     text-align: center;
+    border: 1px solid lightgray;
   }
   #buttonGetLastUpdate ul {
     list-style: none;
@@ -75,8 +77,5 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  #buttonGetLastUpdate h5 {
-    margin: 0px;
   }
 </style>
