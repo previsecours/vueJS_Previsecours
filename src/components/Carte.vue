@@ -189,7 +189,8 @@ export default {
           classeInter = 'non disponible',
           moy3ansInter = 'non disponible',
           ref3ansGlissante = '',
-          colorClasse = '#d6d6d6'
+          colorClasse = '#d6d6d6',
+          predictionTypeCity = ''
         try {
           let pre = feature.properties.prediction
           let pos = this.formatCurrentPosition(feature.properties.currentPosition)
@@ -197,6 +198,7 @@ export default {
           classeInter = (pre['cla_' + pos] || pre['cla_' + pos] === 0) ? pre['cla_' + pos] : classeInter
           moy3ansInter = (pre['po_' + pos] || pre['po_' + pos] === 0) ? Math.round(parseFloat( pre['po_' + pos])*10)/10 : moy3ansInter
           ref3ansGlissante = (pre['po2_' + pos] || pre['po2_' + pos] === 0) ? Math.round(parseFloat(pre['po2_' + pos])*10)/10 : ref3ansGlissante
+          predictionTypeCity = (pre['type_ville'] || pre['type_ville'] === '') ? pre['type_ville'] : ''
           colorClasse = this.green2red(classeInter)
           if (process && process.env && process.env.DEBUG_MODE) { console.log('classeInter,colorClasse',classeInter,colorClasse)  }
         } catch (e) {
@@ -215,6 +217,8 @@ export default {
         let currentTimeAggregationRenamed = this.$store.state.configuration.timeAggregations.find( timeAggregation => timeAggregation.nameCode ===  this.$store.state.filters.currentTimeAggregation).name
         let currentGeoAggregationRenamed = this.$store.state.configuration.geoAggregations.find( geoAggregations => geoAggregations.nameCode ===  this.$store.state.filters.currentGeoAggregation).name
 
+        let predictionTypeCityHTML = (predictionTypeCity === '') ? '' : "<span> ("+predictionTypeCity+") </span>";
+
         let ref3ansGlissanteHTML = (ref3ansGlissante === '')
         ? ''
         : "<a href='https://previsecours.fr/documentation/moyenne/2018/02/10/moyenne-glissante.html' target='_blank'> <span><span class='smaller'> moyenne glissante</span>: <span class='white'> "+ref3ansGlissante+"</span></span></a>";
@@ -223,7 +227,7 @@ export default {
         ?  "<a href='https://previsecours.fr/documentation/moyenne/2018/02/10/moyenne-totale-bis.html' target='_blank'><span><span class='smaller'> moyenne totale bis: </span> <span class='white'>" + moy3ansInter + " </span></span></a>"
         : "<a href='https://previsecours.fr/documentation/moyenne/2018/02/10/moyenne-totale.html' target='_blank'><span><span class='smaller'> moyenne totale: </span> <span class='white'>" + moy3ansInter + " </span></span></a>"
 
-        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo "+isAbove1000CssClass+"' style='border-color:"+colorClasse+"'> <span class='number'>" + partieEntiere + " <span class='smaller2'> "+ partieDecimale +"</span> </span> </span> <span class='smaller'>interventions prédites</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span> Références sur les 3 années passées:</span> "+ moy3ansInterHTML + ref3ansGlissanteHTML + "</span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> <i class='leaflet-subtitle'> "+currentCategorInterRenamed+",  "+currentTimeAggregationRenamed+",  "+currentGeoAggregationRenamed+" </i> </div>");
+        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo "+isAbove1000CssClass+"' style='border-color:"+colorClasse+"'> <span class='number'>" + partieEntiere + " <span class='smaller2'> "+ partieDecimale +"</span> </span> </span> <span class='smaller'>interventions prédites "+predictionTypeCityHTML+"</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span> Références sur les 3 années passées:</span> "+ moy3ansInterHTML + ref3ansGlissanteHTML + "</span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> <i class='leaflet-subtitle'> "+currentCategorInterRenamed+",  "+currentTimeAggregationRenamed+",  "+currentGeoAggregationRenamed+" </i> </div>");
       }
       // layer.on({
       //   click: this.testfct(layer)
