@@ -198,7 +198,7 @@ export default {
           classeInter = (pre['cla_' + pos] || pre['cla_' + pos] === 0) ? pre['cla_' + pos] : classeInter
           moy3ansInter = (pre['po_' + pos] || pre['po_' + pos] === 0) ? Math.round(parseFloat( pre['po_' + pos])*10)/10 : moy3ansInter
           ref3ansGlissante = (pre['po2_' + pos] || pre['po2_' + pos] === 0) ? Math.round(parseFloat(pre['po2_' + pos])*10)/10 : ref3ansGlissante
-          predictionTypeCity = (pre['type_ville'] || pre['type_ville'] === '') ? pre['type_ville'] : ''
+          predictionTypeCity = (pre['type_ville'] && typeof pre['type_ville'] === 'string') ? pre['type_ville'] : ''
           colorClasse = this.green2red(classeInter)
           if (process && process.env && process.env.DEBUG_MODE) { console.log('classeInter,colorClasse',classeInter,colorClasse)  }
         } catch (e) {
