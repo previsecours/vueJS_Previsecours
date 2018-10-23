@@ -51,6 +51,12 @@ export default {
                 pre._source.date_de_reference = component.rename(pre._source.pre_001_is,'pre_001_is')
                 delete pre._source.pre_001_is;
               }
+
+              if (pre._source.hasOwnProperty('type_geo')) {
+                pre._source.dimension_de_la_ville = component.rename(pre._source.type_geo,'type_geo')
+                delete pre._source.type_geo;
+              }
+
               //ici on renomme les colonnes et on les trie pour avoir le bon ordre d'affichage
               let keys = Object.keys(pre._source)
               Array.sort(keys)
@@ -84,6 +90,17 @@ export default {
             break;
           default:
             return 'commune'
+        }
+      } else if (typeOfInformation === 'type_geo') {
+        switch (text.toLowerCase()) {
+          case 'p':
+            return 'Dimension pour le modèle: petite'
+            break;
+          case 'g':
+            return 'Dimension pour le modèle: grande'
+            break;
+          default:
+            return text
         }
       } else if (typeOfInformation === 'label') {
         let textSubstrType = (text.split('_')) ? text.split('_')[0] : ''
