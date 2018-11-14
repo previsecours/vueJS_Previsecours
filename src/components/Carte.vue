@@ -227,7 +227,17 @@ export default {
         ?  "<a href='https://previsecours.fr/documentation/moyenne/2018/02/10/moyenne-totale-bis.html' target='_blank'><span><span class='smaller'> moyenne totale bis: </span> <span class='white'>" + moy3ansInter + " </span></span></a>"
         : "<a href='https://previsecours.fr/documentation/moyenne/2018/02/10/moyenne-totale.html' target='_blank'><span><span class='smaller'> moyenne totale: </span> <span class='white'>" + moy3ansInter + " </span></span></a>"
 
-        layer.bindPopup("<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo "+isAbove1000CssClass+"' style='border-color:"+colorClasse+"'> <span class='number'>" + partieEntiere + " <span class='smaller2'> "+ partieDecimale +"</span> </span> </span> <span class='smaller'>interventions prédites "+predictionTypeCityHTML+"</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div><div class='flexCombo secondDivCol'> <span> Références sur les 3 années passées:</span> "+ moy3ansInterHTML + ref3ansGlissanteHTML + "</span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> <i class='leaflet-subtitle'> "+currentCategorInterRenamed+",  "+currentTimeAggregationRenamed+",  "+currentGeoAggregationRenamed+" </i> </div>");
+        let isZDC = (this.$store.state.filters.currentGeoAggregation === 'zdc') ? true : false
+
+        let firstCol_ready = "<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'> <span class='predictions flexCombo "+isAbove1000CssClass+"' style='border-color:"+colorClasse+"'> <span class='number'>" + partieEntiere + " <span class='smaller2'> "+ partieDecimale +"</span> </span> </span> <span class='smaller'>interventions prédites "+predictionTypeCityHTML+"</span> <span style='color:"+colorClasse+"'> (classe: " + this.int2classe(classeInter) + ") </span> </div>"
+
+        let firstCol_notReady = "<div class='flexCombo firstDivRow'><div class='flexCombo secondDivCol'><span class='smaller'>prédictions d'interventions à venir pour les zones de couvertures</span> </div>"
+
+        let firstCol = (isZDC) ? firstCol_notReady : firstCol_ready
+
+        let secondCol = "<div class='flexCombo secondDivCol'> <span> Références sur les 3 années passées:</span> "+ moy3ansInterHTML + ref3ansGlissanteHTML + " <span class='smaller3'> (interventions par " + currentTimeAggregationRenamed + ") </span> </span> </div><i class='leaflet-title'>" + feature.properties.nom.slice(0, numOfChar) +  threePoints + "</i> <i class='leaflet-subtitle'> "+currentCategorInterRenamed+",  "+currentTimeAggregationRenamed+",  "+currentGeoAggregationRenamed+" </i> </div>"
+
+        layer.bindPopup(firstCol + secondCol);
       }
       // layer.on({
       //   click: this.testfct(layer)
@@ -586,6 +596,10 @@ li a:hover {
 
 .smaller2{
   font-size: 0.5em
+}
+
+.smaller3{
+  font-size: 0.6em
 }
 
 .predictions{
